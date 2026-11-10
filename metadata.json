@@ -1,0 +1,7 @@
+{
+  "name": "Maple Staffing Solutions",
+  "description": "Premium international recruitment and workforce staffing solutions connecting skilled professionals with top employers across Canada and global markets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
