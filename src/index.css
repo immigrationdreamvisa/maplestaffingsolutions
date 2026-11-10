@@ -1,9 +1,41 @@
 @import "tailwindcss";
 
-body {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #10243A;
-  background-color: #F6F8F7;
+@theme {
+  --color-wine-red: #7F011F;
+  --color-deep-burgundy: #590907;
+  --color-cherry: #890149;
+  --color-alabaster: #F3F3E7;
+  --color-light-sand: #F5EBD0;
+  --color-muted-sage: #A5A79B;
+  --font-heading: 'Manrope', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --color-wine-red: #7F011F;
+  --color-deep-burgundy: #590907;
+  --color-cherry: #890149;
+  --color-alabaster: #F3F3E7;
+  --color-light-sand: #F5EBD0;
+  --color-muted-sage: #A5A79B;
+  --color-white: #FFFFFF;
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #590907;
+    background-color: #F3F3E7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Manrope', 'Plus Jakarta Sans', system-ui, sans-serif;
+    color: #590907;
+    letter-spacing: -0.025em;
+  }
 }
 
 /* Ensure all links, buttons, and clickable elements show pointer cursor on hover */
@@ -45,22 +77,40 @@ body.modal-open {
   touch-action: pan-y;
 }
 
-/* Custom smooth animations & scrollbar utilities */
+/* Custom smooth animations & scrollbar utilities in Wine Red & Muted Sage theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F1F4F2;
+  background: #F3F3E7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C4D2CB;
+  background: #A5A79B;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #159B78;
+  background: #7F011F;
 }
 
+/* Diagonal Mask Utilities */
+.diagonal-mask {
+  clip-path: polygon(0 0, 100% 4%, 100% 100%, 0 96%);
+}
+
+.diagonal-mask-alt {
+  clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

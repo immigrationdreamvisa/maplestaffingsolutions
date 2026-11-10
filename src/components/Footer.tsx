@@ -8,7 +8,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenRecruiterPortal }) => {
   return (
-    <footer className="bg-[#10243A] text-slate-300 border-t border-slate-800">
+    <footer className="bg-[#590907] text-[#F5EBD0] border-t border-[#7F011F]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
@@ -23,26 +23,26 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenRecruiterPorta
               <img
                 src="/logo-white.png"
                 alt="Maple Staffing Solutions"
-                className="h-10 sm:h-12 w-auto object-contain transition-opacity duration-200 group-hover:opacity-90"
+                className="h-10 sm:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
               />
             </button>
 
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
-              Maple Staffing Solutions is a premier international recruitment and workforce partner founded in 2012 in Brampton, Ontario. Connecting skilled candidates with trusted employers across Canada and global markets.
+            <p className="text-xs sm:text-sm text-[#F5EBD0]/80 leading-relaxed max-w-sm font-body">
+              Maple Staffing Solutions is a premier recruitment and workforce staffing partner founded in 2012 in Brampton, Ontario. Connecting talented individuals with meaningful career opportunities and helping businesses find the right people to grow.
             </p>
 
-            <div className="pt-2 flex items-center gap-2 text-xs text-slate-400">
-              <ShieldCheck className="w-4 h-4 text-[#159B78]" />
-              <span>Ontario Ministry of Labour & WSIB Compliant</span>
+            <div className="pt-2 flex items-center gap-2 text-xs text-[#A5A79B]">
+              <ShieldCheck className="w-4 h-4 text-[#A5A79B]" />
+              <span className="font-medium text-[#F5EBD0]/90">Ontario Ministry of Labour & WSIB Compliant</span>
             </div>
           </div>
 
           {/* Col 2: Quick Navigation (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
-            <div className="text-xs font-bold text-white uppercase tracking-wider">
+            <div className="text-xs font-bold text-white uppercase tracking-widest font-heading">
               Navigation
             </div>
-            <ul className="space-y-2 text-xs sm:text-sm">
+            <ul className="space-y-2 text-xs sm:text-sm font-body">
               {['Home', 'About Us', 'Services', 'Industries', 'Careers', 'Contact Us'].map((item) => {
                 const id = item.toLowerCase().replace(' ', '');
                 const targetId = id === 'aboutus' ? 'about' : id === 'contactus' ? 'contact' : id;
@@ -50,7 +50,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenRecruiterPorta
                   <li key={item}>
                     <button
                       onClick={() => onNavigate(targetId)}
-                      className="hover:text-white transition-colors text-left cursor-pointer"
+                      className="text-[#F5EBD0]/80 hover:text-white transition-colors text-left cursor-pointer"
                     >
                       {item}
                     </button>
@@ -60,71 +60,71 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenRecruiterPorta
             </ul>
           </div>
 
-          {/* Col 3: Recruitment Services (3 cols) */}
+          {/* Col 3: Staffing Services (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <div className="text-xs font-bold text-white uppercase tracking-wider">
+            <div className="text-xs font-bold text-white uppercase tracking-widest font-heading">
               Staffing Services
             </div>
-            <ul className="space-y-2 text-xs sm:text-sm">
+            <ul className="space-y-2 text-xs sm:text-sm font-body">
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-white transition-colors text-left cursor-pointer">
-                  International Recruitment
+                <button onClick={() => onNavigate('services')} className="text-[#F5EBD0]/80 hover:text-white transition-colors text-left cursor-pointer">
+                  Recruitment Solutions
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-white transition-colors text-left cursor-pointer">
-                  Skilled Workforce Solutions
+                <button onClick={() => onNavigate('services')} className="text-[#F5EBD0]/80 hover:text-white transition-colors text-left cursor-pointer">
+                  Staffing Services
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-white transition-colors text-left cursor-pointer">
-                  Employer Recruitment Support
+                <button onClick={() => onNavigate('services')} className="text-[#F5EBD0]/80 hover:text-white transition-colors text-left cursor-pointer">
+                  Career Opportunities
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-white transition-colors text-left cursor-pointer">
-                  Career Guidance & Orientation
+                <button onClick={() => onNavigate('services')} className="text-[#F5EBD0]/80 hover:text-white transition-colors text-left cursor-pointer">
+                  Employer Support
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('careers')} className="text-[#159B78] hover:underline flex items-center gap-1 mt-2 cursor-pointer">
-                  <span>Browse All Vacancies</span>
+                <button onClick={() => onNavigate('careers')} className="text-[#A5A79B] hover:text-white flex items-center gap-1 mt-2.5 cursor-pointer font-semibold">
+                  <span>Browse All 25 Vacancies</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Verified Contact Info (3 cols) */}
+          {/* Col 4: Verified Contact Office (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <div className="text-xs font-bold text-white uppercase tracking-wider">
+            <div className="text-xs font-bold text-white uppercase tracking-widest font-heading">
               Contact Office
             </div>
-            <div className="space-y-2.5 text-xs sm:text-sm text-slate-400">
+            <div className="space-y-2.5 text-xs sm:text-sm text-[#F5EBD0]/85 font-body">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#159B78] shrink-0 mt-0.5" />
-                <span>Brampton, Ontario, Canada</span>
+                <MapPin className="w-4 h-4 text-[#A5A79B] shrink-0 mt-0.5" />
+                <span>2250 Bovaird Dr E, Suite 208, Brampton, ON L6R 0W3</span>
               </div>
               <div className="flex items-start gap-2.5">
-                <Phone className="w-4 h-4 text-[#159B78] shrink-0 mt-0.5" />
-                <a href="tel:+19057930000" className="hover:text-white transition-colors cursor-pointer">
+                <Phone className="w-4 h-4 text-[#A5A79B] shrink-0 mt-0.5" />
+                <a href="tel:+19057930000" className="hover:text-white transition-colors cursor-pointer font-bold">
                   +1 (905) 793-0000
                 </a>
               </div>
               <div className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-[#159B78] shrink-0 mt-0.5" />
-                <a href="mailto:info@maplestaffingsolutions.com" className="hover:text-white transition-colors break-all cursor-pointer">
+                <Mail className="w-4 h-4 text-[#A5A79B] shrink-0 mt-0.5" />
+                <a href="mailto:info@maplestaffingsolutions.com" className="hover:text-white transition-colors break-all cursor-pointer font-bold">
                   info@maplestaffingsolutions.com
                 </a>
               </div>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-3">
               <button
                 onClick={onOpenRecruiterPortal}
-                className="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 text-xs text-slate-300 hover:text-white border border-white/10 transition-colors flex items-center gap-1.5 cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs text-[#F5EBD0] hover:text-white border border-white/15 transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <Briefcase className="w-3.5 h-3.5 text-[#159B78]" />
+                <Briefcase className="w-3.5 h-3.5 text-[#A5A79B]" />
                 <span>Recruiter Portal Access</span>
               </button>
             </div>
@@ -133,16 +133,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenRecruiterPorta
         </div>
 
         {/* Bottom Bar: Copyright & Compliance */}
-        <div className="mt-16 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#F5EBD0]/70 font-body">
           <div>
-            © {new Date().getFullYear()} Maple Staffing Solutions. All rights reserved. Established in 2012.
+            © {new Date().getFullYear()} Maple Staffing Solutions. All rights reserved. Founded in 2012.
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <span>Equal Opportunity Employer</span>
             <span>·</span>
             <span>Zero Candidate Placement Fees</span>
             <span>·</span>
-            <a href="https://maplestaffingsolutions.com/" target="_blank" rel="noopener noreferrer" className="hover:text-slate-400">
+            <a href="https://maplestaffingsolutions.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white font-bold">
               maplestaffingsolutions.com
             </a>
           </div>

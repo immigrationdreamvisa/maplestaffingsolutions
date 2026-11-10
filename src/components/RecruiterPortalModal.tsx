@@ -118,7 +118,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
     setFormCategory(job.category);
     setFormLocation(job.location);
     setFormEmploymentType(job.employmentType);
-    setFormHourlyRate(job.hourlyRate);
+    setFormHourlyRate(job.hourlyRate || '');
     setFormIsVerified(job.isVerifiedVacancy);
     setFormDescription(job.description);
     setFormResponsibilities(job.responsibilities.join('\n'));
@@ -228,23 +228,23 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-xs overflow-y-auto modal-backdrop"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-xs overflow-y-auto modal-backdrop animate-in fade-in duration-200"
     >
-      <div className="bg-white rounded-2xl max-w-5xl w-full p-5 sm:p-8 shadow-2xl relative my-6 max-h-[92vh] flex flex-col modal-dialog">
+      <div className="bg-[#F3F3E7] rounded-2xl max-w-5xl w-full p-5 sm:p-8 shadow-2xl relative my-6 max-h-[92vh] flex flex-col modal-dialog border border-[#F5EBD0]">
         
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+        <div className="flex items-center justify-between pb-4 border-b border-[#F5EBD0]">
           <div className="flex items-center gap-3">
             <img
               src="/logo-transparent.png"
               alt="Maple Staffing Solutions"
               className="h-9 w-auto object-contain hidden sm:block"
             />
-            <div className="sm:border-l sm:border-slate-300 sm:pl-3">
-              <h2 className="text-xl sm:text-2xl font-extrabold text-[#10243A]">
+            <div className="sm:border-l sm:border-[#F5EBD0] sm:pl-3">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-[#590907] font-heading">
                 Recruiter Management Portal
               </h2>
-              <div className="text-xs text-slate-500">
+              <div className="text-xs text-[#590907]/70">
                 Manage job vacancies, distinguish sample listings, and review incoming candidate applications.
               </div>
             </div>
@@ -252,7 +252,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2 text-[#590907] hover:text-[#7F011F] hover:bg-[#F5EBD0] rounded-xl transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -267,40 +267,40 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
         )}
 
         {/* Tabs */}
-        <div className="flex items-center gap-2 pt-3 border-b border-slate-100">
+        <div className="flex items-center gap-2 pt-3 border-b border-[#F5EBD0]">
           <button
             onClick={() => { setActiveTab('jobs'); setIsEditing(false); }}
-            className={`px-4 py-2 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`px-4 py-2 text-xs sm:text-sm font-bold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'jobs'
-                ? 'border-[#159B78] text-[#159B78]'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-[#590907] text-[#590907]'
+                : 'border-transparent text-[#7F011F] hover:text-[#590907]'
             }`}
           >
-            <Briefcase className="w-4 h-4" />
+            <Briefcase className="w-4 h-4 text-[#A5A79B]" />
             <span>Job Listings ({jobs.length})</span>
           </button>
 
           <button
             onClick={() => { setActiveTab('applications'); setIsEditing(false); }}
-            className={`px-4 py-2 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`px-4 py-2 text-xs sm:text-sm font-bold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'applications'
-                ? 'border-[#159B78] text-[#159B78]'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-[#590907] text-[#590907]'
+                : 'border-transparent text-[#7F011F] hover:text-[#590907]'
             }`}
           >
-            <Users className="w-4 h-4" />
+            <Users className="w-4 h-4 text-[#A5A79B]" />
             <span>Candidate Applications ({applications.length})</span>
           </button>
 
           <button
             onClick={() => { setActiveTab('messages'); setIsEditing(false); }}
-            className={`px-4 py-2 text-xs sm:text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`px-4 py-2 text-xs sm:text-sm font-bold border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'messages'
-                ? 'border-[#159B78] text-[#159B78]'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-[#590907] text-[#590907]'
+                : 'border-transparent text-[#7F011F] hover:text-[#590907]'
             }`}
           >
-            <Mail className="w-4 h-4" />
+            <Mail className="w-4 h-4 text-[#A5A79B]" />
             <span>Inquiries ({messages.length})</span>
           </button>
         </div>
@@ -315,7 +315,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                 /* Edit/Create Form */
                 <form onSubmit={handleSaveJob} className="space-y-4 max-w-3xl mx-auto bg-slate-50 p-5 rounded-xl border border-slate-200">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-[#10243A]">
+                    <h3 className="font-bold text-[#590907]">
                       {editingJobId ? 'Edit Job Listing' : 'Publish New Job Listing'}
                     </h3>
                     <button
@@ -392,7 +392,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                   {/* Toggle Verified Live Vacancy vs Sample Listing */}
                   <div className="p-3 bg-white border border-slate-200 rounded-lg flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-bold text-[#10243A]">Listing Verification Status</div>
+                      <div className="text-xs font-bold text-[#590907]">Listing Verification Status</div>
                       <div className="text-[11px] text-slate-500">
                         Distinguish verified active vacancies from sample mock listings for portal preview.
                       </div>
@@ -404,7 +404,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                         onChange={(e) => setFormIsVerified(e.target.checked)}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#159B78]"></div>
+                      <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#7F011F]"></div>
                       <span className="ml-2 text-xs font-medium text-slate-700">
                         {formIsVerified ? 'Verified Live Vacancy' : 'Sample Listing'}
                       </span>
@@ -452,7 +452,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 bg-[#159B78] hover:bg-[#128264] text-white text-xs font-semibold rounded-lg shadow-sm"
+                      className="px-5 py-2 bg-[#590907] hover:bg-[#7F011F] text-white text-xs font-semibold rounded-lg shadow-sm"
                     >
                       Save Job Listing
                     </button>
@@ -467,7 +467,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                     </div>
                     <button
                       onClick={handleStartCreate}
-                      className="px-3.5 py-2 bg-[#159B78] hover:bg-[#128264] text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm"
+                      className="px-3.5 py-2 bg-[#590907] hover:bg-[#7F011F] text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm"
                     >
                       <Plus className="w-4 h-4" />
                       <span>Add New Job</span>
@@ -480,7 +480,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                         <tr>
                           <th className="p-3">Job Title & Sector</th>
                           <th className="p-3">Location & Type</th>
-                          <th className="p-3">Hourly Rate</th>
+                          <th className="p-3">Compensation Terms</th>
                           <th className="p-3">Status Badge</th>
                           <th className="p-3 text-right">Actions</th>
                         </tr>
@@ -489,15 +489,15 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                         {jobs.map((job) => (
                           <tr key={job.id} className="hover:bg-slate-50 transition-colors">
                             <td className="p-3">
-                              <div className="font-bold text-[#10243A] text-sm">{job.title}</div>
+                              <div className="font-bold text-[#590907] text-sm">{job.title}</div>
                               <span className="text-[11px] text-slate-500">{job.category}</span>
                             </td>
                             <td className="p-3">
                               <div>{job.location}</div>
                               <span className="text-[11px] text-slate-400">{job.employmentType}</span>
                             </td>
-                            <td className="p-3 font-mono font-medium text-slate-800">
-                              {job.hourlyRate}
+                            <td className="p-3 font-medium text-slate-700">
+                              Direct / Standard
                             </td>
                             <td className="p-3">
                               <button
@@ -516,7 +516,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                               <div className="inline-flex items-center gap-1">
                                 <button
                                   onClick={() => handleStartEdit(job)}
-                                  className="p-1.5 text-slate-500 hover:text-[#10243A] hover:bg-slate-200 rounded"
+                                  className="p-1.5 text-slate-500 hover:text-[#590907] hover:bg-slate-200 rounded"
                                   title="Edit"
                                 >
                                   <Edit2 className="w-3.5 h-3.5" />
@@ -549,7 +549,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                 </div>
                 <button
                   onClick={fetchApplications}
-                  className="text-xs text-[#159B78] hover:underline"
+                  className="text-xs text-[#7F011F] hover:underline"
                 >
                   Refresh Applications
                 </button>
@@ -577,7 +577,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/60 pb-3 mb-3">
                         <div>
-                          <div className="text-sm font-bold text-[#10243A] flex items-center gap-2">
+                          <div className="text-sm font-bold text-[#590907] flex items-center gap-2">
                             <span>{app.fullName}</span>
                             <span className="text-[10px] font-mono bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded">
                               {app.id}
@@ -610,7 +610,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-600 mb-3">
                         <div>
                           <span className="text-slate-400 block text-[10px]">Email:</span>
-                          <a href={`mailto:${app.email}`} className="text-[#159B78] hover:underline font-medium">
+                          <a href={`mailto:${app.email}`} className="text-[#590907] hover:text-[#7F011F] hover:underline font-bold">
                             {app.email}
                           </a>
                         </div>
@@ -642,9 +642,9 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                           <a
                             href={app.resumeFile.dataBase64}
                             download={app.resumeFile.name}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#159B78]/10 text-[#159B78] hover:bg-[#159B78]/20 font-semibold rounded-md text-xs transition-colors"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#590907] text-white hover:bg-[#7F011F] font-semibold rounded-lg text-xs transition-colors shadow-xs"
                           >
-                            <Download className="w-3.5 h-3.5" />
+                            <Download className="w-3.5 h-3.5 text-[#A5A79B]" />
                             <span>Download {app.resumeFile.name}</span>
                           </a>
                         ) : (
@@ -670,7 +670,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                 </div>
                 <button
                   onClick={fetchMessages}
-                  className="text-xs text-[#159B78] hover:underline"
+                  className="text-xs text-[#7F011F] hover:underline"
                 >
                   Refresh Inquiries
                 </button>
@@ -694,7 +694,7 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
                   {messages.map((msg) => (
                     <div key={msg.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50">
                       <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="font-bold text-[#10243A] text-sm">{msg.fullName}</span>
+                        <span className="font-bold text-[#590907] text-sm">{msg.fullName}</span>
                         <span className="text-slate-400 font-mono text-[10px]">{msg.id}</span>
                       </div>
                       <div className="text-xs text-slate-500 mb-2">

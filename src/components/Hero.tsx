@@ -1,135 +1,335 @@
 import React from 'react';
-import { ArrowRight, Globe, ShieldCheck, Sparkles, MapPin, Calendar } from 'lucide-react';
+import { motion } from 'motion/react';
+import { ArrowRight, ArrowUpRight, Users, Handshake, Globe, MapPin, Calendar, ShieldCheck, Sparkles, TrendingUp } from 'lucide-react';
 
 interface HeroProps {
   onExploreCareers: () => void;
   onExploreSolutions: () => void;
+  onExploreAbout?: () => void;
+  onExploreStory?: () => void;
+  onExploreGlobal?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   onExploreCareers,
-  onExploreSolutions
+  onExploreSolutions,
+  onExploreAbout,
+  onExploreStory,
+  onExploreGlobal
 }) => {
   return (
-    <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 overflow-hidden bg-gradient-to-b from-[#10243A] via-[#122A44] to-[#10243A] text-white">
-      {/* Subtle architectural mesh background */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#159B78_1px,transparent_1px)] [background-size:24px_24px]" />
+    <section className="relative pt-24 sm:pt-28 pb-14 sm:pb-20 overflow-hidden bg-[#F3F3E7] text-[#590907]">
       
-      {/* Subtle emerald ambient glow in top-right */}
-      <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#159B78]/15 rounded-full blur-3xl pointer-events-none" />
-
+      {/* Subtle architectural background texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#590907_1px,transparent_1px)] [background-size:24px_24px]" />
+      
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        {/* ========================================================================= */}
+        {/* HERO PANORAMIC BANNER CONTAINER (MATCHING 1ST IMAGE WITH 2ND REAL PHOTO)   */}
+        {/* ========================================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(89,9,7,0.22)] bg-[#590907] border border-[#7F011F]/40"
+        >
           
-          {/* Left Column: Proposition & CTAs */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+          {/* 1. DESKTOP / TABLET WIDESCREEN COMPOSITION (md and above) */}
+          <div className="hidden md:block relative w-full aspect-[1024/440] min-h-[500px] md:min-h-[520px] lg:min-h-[560px] xl:min-h-[580px] select-none">
             
-            {/* Eyebrow kicker */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-xs font-semibold tracking-wider text-[#159B78] uppercase">
-              <Globe className="w-3.5 h-3.5" />
-              <span>International Recruitment & Career Staffing</span>
+            {/* Background: Paramjeet Kaur's Real Photograph (2nd Image) */}
+            <div className="absolute inset-0 z-0">
+              <img
+                src="/images/paramjeet_kaur_real.jpg"
+                alt="Paramjeet Kaur, Founder of Maple Staffing Solutions"
+                className="w-full h-full object-cover object-[58%_center]"
+                loading="eager"
+              />
             </div>
 
-            {/* Main Heading */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.35rem] font-extrabold tracking-tight text-white leading-[1.15] text-balance">
-              Connecting the Right Talent With the Right Opportunities.
-            </h1>
-
-            {/* Supporting Copy */}
-            <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
-              Helping people discover rewarding career opportunities, connecting motivated talent with trusted employers, and building better careers across Canada and global markets.
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
-              <button
-                onClick={onExploreCareers}
-                className="px-6 py-3.5 text-sm sm:text-base font-semibold text-white bg-[#159B78] hover:bg-[#128264] rounded-lg transition-all duration-200 shadow-md shadow-emerald-950/30 flex items-center gap-2 group whitespace-nowrap cursor-pointer"
+            {/* Left Solid Deep Burgundy Backdrop & Smooth Wave SVG */}
+            <div className="absolute inset-y-0 left-0 w-[50%] lg:w-[48%] z-10 pointer-events-none">
+              <svg 
+                className="w-full h-full text-[#590907] fill-current filter drop-shadow-[10px_0_20px_rgba(0,0,0,0.38)]" 
+                preserveAspectRatio="none" 
+                viewBox="0 0 500 480"
               >
-                <span>Explore Career Opportunities</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
+                {/* Smooth organic wave transitioning from left to center behind Paramjeet Kaur */}
+                <path d="M0,0 L360,0 C420,80 405,160 375,220 C335,290 365,390 440,480 L0,480 Z" />
+              </svg>
 
-              <button
-                onClick={onExploreSolutions}
-                className="px-6 py-3.5 text-sm sm:text-base font-semibold text-slate-200 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
-              >
-                Our Staffing Solutions
-              </button>
+              {/* Decorative delicate gold/rose contour wave lines */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 500 480" preserveAspectRatio="none" fill="none">
+                <path d="M350,-20 C430,80 405,170 365,230 C325,300 355,400 430,500" stroke="#F5EBD0" strokeWidth="1.2" />
+                <path d="M370,-30 C450,80 425,170 385,230 C345,300 375,400 450,500" stroke="#F5EBD0" strokeWidth="0.8" />
+                <path d="M390,-40 C470,80 445,170 405,230 C365,300 395,400 470,500" stroke="#F5EBD0" strokeWidth="0.5" />
+              </svg>
             </div>
 
-            {/* Verified Foundation Markers */}
-            <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-6 sm:gap-8 text-xs text-slate-300">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-[#159B78]" />
-                <span>Established <strong>2012</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#159B78]" />
-                <span>HQ: <strong>Brampton, Ontario, Canada</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#159B78]" />
-                <span>Verified Canadian & Global Placements</span>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Right Column: Visual Focal Carrier with Floating Cards */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
+            {/* Left Column Content (HTML Typography & Interactive Buttons) */}
+            <div className="absolute inset-y-0 left-0 w-[46%] lg:w-[44%] xl:w-[42%] z-20 flex flex-col justify-between py-7 sm:py-9 lg:py-11 pl-7 sm:pl-9 lg:pl-12 pr-4 pointer-events-auto">
               
-              {/* Main Photo Frame - High-end corporate diverse professionals */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900 aspect-[4/3] group">
-                <img
-                  src="/src/assets/images/hero_diverse_professionals_1794294127960.jpg"
-                  alt="Confident diverse team of corporate professionals and career specialists at Maple Staffing Solutions"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  referrerPolicy="no-referrer"
-                  loading="eager"
+              <div className="space-y-3.5 sm:space-y-4 pt-1 sm:pt-2">
+                {/* Eyebrow */}
+                <div className="flex items-center gap-2 text-white/90 text-[10px] sm:text-[11px] lg:text-xs font-bold tracking-[0.22em] uppercase">
+                  <span className="w-5 h-[1.5px] bg-white/80 inline-block" />
+                  <span>YOUR CAREER. YOUR FUTURE.</span>
+                </div>
+
+                {/* Headline: "Discover Opportunities. Build Your Future." */}
+                <h1 className="text-2xl sm:text-3xl md:text-[2.2rem] lg:text-[2.75rem] xl:text-[3.1rem] font-bold !text-white text-white leading-[1.12] tracking-tight font-heading">
+                  <span className="block !text-white text-white">Discover</span>
+                  <span className="block !text-white text-white">Opportunities.</span>
+                  <span className="inline-block !text-white text-white">Build Your </span>{' '}
+                  <span className="relative inline-block italic font-serif !text-white text-white font-normal">
+                    Future.
+                    {/* Curved white underline flourish */}
+                    <svg className="absolute -bottom-2.5 left-0 w-[112%] h-3.5 text-white" viewBox="0 0 140 14" fill="none">
+                      <path d="M2 11C40 2 100 2 138 11" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                </h1>
+
+                {/* Subtitle */}
+                <p className="text-[11px] sm:text-xs lg:text-[13.5px] text-white/90 max-w-sm sm:max-w-md leading-relaxed font-body pt-1">
+                  We connect talented individuals with meaningful career opportunities and help businesses find the right people to grow.
+                </p>
+
+                {/* Action Buttons */}
+                <div className="flex items-center gap-3 pt-2">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.96 }}
+                    onClick={onExploreCareers}
+                    className="px-5 lg:px-6 py-2.5 bg-white text-[#590907] hover:bg-[#F5EBD0] text-xs lg:text-sm font-bold rounded-full transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span>Explore Jobs</span>
+                    <ArrowUpRight className="w-3.5 lg:w-4 h-3.5 lg:h-4 text-[#590907]" />
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.12)' }}
+                    whileTap={{ scale: 0.96 }}
+                    onClick={onExploreSolutions}
+                    className="px-5 lg:px-6 py-2.5 bg-transparent text-white text-xs lg:text-sm font-semibold rounded-full border border-white/70 hover:border-white transition-all cursor-pointer"
+                  >
+                    Hire Talent
+                  </motion.button>
+                </div>
+              </div>
+
+              {/* Bottom White Pill Bar (3 Segments + Angled Burgundy Tab) */}
+              <div className="relative inline-flex items-stretch self-start bg-white rounded-l-full shadow-xl border border-white/80 text-[#590907] pr-0 overflow-visible mt-4">
+                
+                {/* 1. Candidate Support */}
+                <button
+                  onClick={onExploreCareers}
+                  className="flex items-center gap-2 px-3.5 lg:px-4 py-2 hover:bg-[#F5EBD0]/40 transition-colors text-left cursor-pointer rounded-l-full"
+                >
+                  <Users className="w-4 h-4 text-[#7F011F] shrink-0" />
+                  <span className="text-[10px] lg:text-[11px] font-bold leading-tight uppercase tracking-wider">
+                    Candidate<br /><span className="font-semibold text-[#590907]/80">Support</span>
+                  </span>
+                </button>
+
+                {/* Divider */}
+                <div className="w-[1px] bg-[#590907]/20 my-2 self-stretch" />
+
+                {/* 2. Employer Solutions */}
+                <button
+                  onClick={onExploreSolutions}
+                  className="flex items-center gap-2 px-3.5 lg:px-4 py-2 hover:bg-[#F5EBD0]/40 transition-colors text-left cursor-pointer"
+                >
+                  <Handshake className="w-4 h-4 text-[#7F011F] shrink-0" />
+                  <span className="text-[10px] lg:text-[11px] font-bold leading-tight uppercase tracking-wider">
+                    Employer<br /><span className="font-semibold text-[#590907]/80">Solutions</span>
+                  </span>
+                </button>
+
+                {/* Divider */}
+                <div className="w-[1px] bg-[#590907]/20 my-2 self-stretch" />
+
+                {/* 3. Global Opportunities */}
+                <button
+                  onClick={onExploreGlobal || onExploreCareers}
+                  className="flex items-center gap-2 px-3.5 lg:px-4 py-2 hover:bg-[#F5EBD0]/40 transition-colors text-left cursor-pointer"
+                >
+                  <Globe className="w-4 h-4 text-[#7F011F] shrink-0" />
+                  <span className="text-[10px] lg:text-[11px] font-bold leading-tight uppercase tracking-wider">
+                    Global<br /><span className="font-semibold text-[#590907]/80">Opportunities</span>
+                  </span>
+                </button>
+
+                {/* Angled Burgundy Decorative Tab on Right End */}
+                <div 
+                  className="w-5 bg-[#590907] self-stretch"
+                  style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }}
                 />
-                {/* Subtle gradient scrim */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#10243A]/70 via-transparent to-transparent pointer-events-none" />
               </div>
 
-              {/* Floating Card 1: Global Recruitment (Top-right) */}
-              <div className="absolute -top-4 -right-2 sm:-right-4 bg-[#10243A]/90 backdrop-blur-md border border-white/15 p-3 sm:p-4 rounded-xl shadow-xl flex items-center gap-3 transition-transform hover:-translate-y-1">
-                <div className="w-9 h-9 rounded-lg bg-[#159B78]/20 text-[#159B78] flex items-center justify-center shrink-0">
-                  <Globe className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-white tracking-wide">Global Recruitment</div>
-                  <div className="text-[11px] text-slate-300">Canada & International Pipelines</div>
+            </div>
+
+            {/* Right Slanted Wine Panel: Paramjeet Kaur Founder Card */}
+            <div 
+              className="absolute inset-y-0 right-0 w-[24%] lg:w-[22%] z-20 bg-gradient-to-br from-[#7F011F] via-[#7F011F] to-[#590907] text-white flex flex-col justify-center p-5 lg:p-7 shadow-[-10px_0_20px_rgba(0,0,0,0.3)]"
+              style={{ clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0 100%)' }}
+            >
+              <div className="pl-4 lg:pl-6 space-y-1.5 text-left">
+                <span className="text-[10px] lg:text-[11px] font-bold text-[#F5EBD0] tracking-wider uppercase block">
+                  Our Founder
+                </span>
+                
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-serif italic !text-white text-white font-normal leading-tight drop-shadow-sm">
+                  Paramjeet<br />Kaur
+                </h3>
+
+                <div className="w-8 h-[1.5px] bg-[#F5EBD0]/60 my-2.5" />
+
+                <p className="text-[10px] lg:text-[11.5px] text-white/90 leading-snug font-body max-w-[150px]">
+                  The vision behind Maple Staffing Solutions.
+                </p>
+
+                <div className="pt-2.5">
+                  <motion.button
+                    whileHover={{ scale: 1.12 }}
+                    whileTap={{ scale: 0.94 }}
+                    onClick={onExploreStory || onExploreAbout}
+                    aria-label="Read Paramjeet Kaur's Story"
+                    title="Read Founder Story"
+                    className="w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-white text-[#590907] hover:bg-[#F5EBD0] flex items-center justify-center transition-all shadow-md cursor-pointer"
+                  >
+                    <ArrowRight className="w-4 h-4 text-[#590907]" />
+                  </motion.button>
                 </div>
               </div>
+            </div>
 
-              {/* Floating Card 2: Trusted Staffing Solutions (Bottom-left) */}
-              <div className="absolute -bottom-5 -left-2 sm:-left-4 bg-[#10243A]/90 backdrop-blur-md border border-white/15 p-3 sm:p-4 rounded-xl shadow-xl flex items-center gap-3 transition-transform hover:-translate-y-1">
-                <div className="w-9 h-9 rounded-lg bg-[#159B78] text-white flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-white tracking-wide">Trusted Staffing Solutions</div>
-                  <div className="text-[11px] text-slate-300">Pre-screened & Workplace Ready</div>
-                </div>
+          </div>
+
+          {/* 2. MOBILE RESPONSIVE COMPOSITION (< md screens) */}
+          <div className="block md:hidden bg-[#590907] text-white">
+            
+            {/* Real Photo of Paramjeet Kaur with Canadian Flag & Executive Desk */}
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#590907]">
+              <img
+                src="/images/paramjeet_kaur_real.jpg"
+                alt="Paramjeet Kaur, Founder of Maple Staffing Solutions"
+                className="w-full h-full object-cover object-[55%_center]"
+                loading="eager"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#590907] via-transparent to-black/30 pointer-events-none" />
+              
+              {/* Floating Mobile Founder Badge */}
+              <button
+                onClick={onExploreStory || onExploreAbout}
+                className="absolute bottom-3 right-3 bg-[#590907]/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-[#7F011F] text-right cursor-pointer hover:bg-[#7F011F] transition-colors"
+              >
+                <div className="text-[10px] uppercase font-bold text-[#F5EBD0]">Read Founder Story →</div>
+                <div className="text-xs font-serif italic font-bold text-white">Paramjeet Kaur</div>
+              </button>
+            </div>
+
+            {/* Mobile Text & Buttons Area */}
+            <div className="p-5 sm:p-6 space-y-4">
+              
+              <div className="flex items-center gap-2 text-white/90 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <span className="w-4 h-[1px] bg-white/80 inline-block" />
+                <span>YOUR CAREER. YOUR FUTURE.</span>
               </div>
 
-              {/* Floating Card 3: Career Opportunities (Mid-right offset) */}
-              <div className="hidden sm:flex absolute top-1/2 -right-6 -translate-y-1/2 bg-white text-[#10243A] p-2.5 sm:p-3 rounded-lg shadow-xl border border-slate-200 items-center gap-2.5">
-                <div className="w-7 h-7 rounded bg-[#10243A] text-[#159B78] flex items-center justify-center">
-                  <Sparkles className="w-4 h-4" />
-                </div>
-                <div className="pr-1">
-                  <div className="text-xs font-bold">Career Opportunities</div>
-                  <div className="text-[10px] text-slate-600 font-medium">Permanent & Direct-Hire Roles</div>
-                </div>
+              <h1 className="text-2xl sm:text-3xl font-bold !text-white text-white leading-tight font-heading">
+                <span className="block !text-white text-white">Discover Opportunities.</span>
+                <span className="inline-block !text-white text-white">Build Your </span>{' '}
+                <span className="relative inline-block italic font-serif text-[#F5EBD0]">
+                  Future.
+                  <svg className="absolute -bottom-1.5 left-0 w-full h-2.5 text-[#F5EBD0]" viewBox="0 0 140 14" fill="none">
+                    <path d="M2 11C40 2 100 2 138 11" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                  </svg>
+                </span>
+              </h1>
+
+              <p className="text-xs text-white/85 leading-relaxed font-body">
+                We connect talented individuals with meaningful career opportunities and help businesses find the right people to grow.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-3 pt-1">
+                <button
+                  onClick={onExploreCareers}
+                  className="flex-1 py-2.5 bg-white text-[#590907] text-xs font-bold rounded-full transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <span>Explore Jobs</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+
+                <button
+                  onClick={onExploreSolutions}
+                  className="flex-1 py-2.5 bg-transparent text-white text-xs font-semibold rounded-full border border-white/70 transition-all cursor-pointer text-center"
+                >
+                  Hire Talent
+                </button>
+              </div>
+
+              {/* Mobile 3-Way Quick Navigation Bar */}
+              <div className="pt-2 grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
+                <button
+                  onClick={onExploreCareers}
+                  className="p-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white flex flex-col items-center gap-1 cursor-pointer"
+                >
+                  <Users className="w-4 h-4 text-[#F5EBD0]" />
+                  <span>Candidate Support</span>
+                </button>
+
+                <button
+                  onClick={onExploreSolutions}
+                  className="p-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white flex flex-col items-center gap-1 cursor-pointer"
+                >
+                  <Handshake className="w-4 h-4 text-[#F5EBD0]" />
+                  <span>Employer Solutions</span>
+                </button>
+
+                <button
+                  onClick={onExploreGlobal || onExploreCareers}
+                  className="p-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white flex flex-col items-center gap-1 cursor-pointer"
+                >
+                  <Globe className="w-4 h-4 text-[#F5EBD0]" />
+                  <span>Global Pathways</span>
+                </button>
               </div>
 
             </div>
           </div>
 
-        </div>
+        </motion.div>
+
+        {/* ========================================================================= */}
+        {/* TRUST & HERITAGE BANNER DIRECTLY BENEATH THE HERO                          */}
+        {/* ========================================================================= */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#F5EBD0] flex flex-wrap items-center justify-between gap-4 text-xs font-medium text-[#590907]/80"
+        >
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-[#7F011F]" />
+            <span>Established <strong className="text-[#590907]">2012</strong> in Brampton, ON</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-[#7F011F]" />
+            <span><strong>Zero Candidate Fees</strong> · Ontario Ministry of Labour Compliant</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-[#7F011F]" />
+            <span><strong>10,000+</strong> Placements Made</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-[#7F011F]" />
+            <span><strong>250+</strong> Vetted Employer Partners</span>
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

@@ -1,663 +1,327 @@
 import { JobListing } from '../types';
 
 export const INITIAL_JOBS: JobListing[] = [
-  // --- Administration & Office ---
+  // 1. Customer Service Representative
   {
     id: 'job-1',
-    title: 'Administrative Assistant',
+    title: 'Customer Service Representative',
     location: 'Brampton, Ontario',
     category: 'Administration & Office',
     employmentType: 'Full-time',
-    hourlyRate: '$21.00 - $24.50 / hr',
     isVerifiedVacancy: true,
-    description: 'Support senior management and staff with scheduling, calendar coordination, document preparation, and executive correspondence.',
+    description: 'Deliver responsive, compassionate customer care and account support across inbound phone, email, and live communication channels in a modern corporate setting.',
     responsibilities: [
-      'Manage executive meeting agendas, calendar invitations, and conference room logistics',
-      'Prepare quarterly reports, business correspondence, and presentations using MS Office',
-      'Coordinate vendor invoices, purchase orders, and office supply replenishment',
-      'Serve as a professional point of contact for external corporate partners'
+      'Manage incoming customer inquiries, account verifications, and order tracking via multi-line headset systems',
+      'Provide accurate policy guidance, service scheduling, and product documentation with empathetic communication',
+      'Log and resolve customer support tickets within established enterprise SLA response targets',
+      'Collaborate with cross-functional team leads to escalate complex client account inquiries smoothly'
     ],
     qualifications: [
-      'High school diploma required; post-secondary diploma in office administration preferred',
-      'Proficiency in Microsoft Word, Excel, PowerPoint, and Outlook',
-      'Strong organizational, multi-tasking, and professional telephone communication skills',
-      'Minimum 1 year of prior administrative or office clerical experience'
+      'Demonstrated customer support, call center, or client services experience',
+      'Active listening skills with clear, courteous verbal articulation and professional telephone etiquette',
+      'Familiarity with CRM ticketing platforms (Zendesk, Salesforce, or Microsoft Dynamics)',
+      'High school diploma required; post-secondary coursework in communications or business an asset'
     ],
     experience: '1 - 2 years',
     postedDate: '1 day ago',
-    workArrangement: 'On-site · Monday to Friday 8:30 AM - 5:00 PM',
-    cardImage: '/src/assets/images/cat_office_reception_1794294598540.jpg'
+    workArrangement: 'On-site · Monday to Friday 9:00 AM - 5:30 PM',
+    cardImage: '/images/careers/customer_service.jpg'
   },
+
+  // 2. Administrative Assistant
   {
     id: 'job-2',
-    title: 'Data Entry Operator',
+    title: 'Administrative Assistant',
     location: 'Mississauga, Ontario',
     category: 'Administration & Office',
     employmentType: 'Full-time',
-    hourlyRate: '$19.50 - $22.00 / hr',
     isVerifiedVacancy: true,
-    description: 'Input high-volume inventory manifests, client records, and transaction logs accurately into digital enterprise databases.',
+    description: 'Provide comprehensive executive coordination, calendar scheduling, document preparation, and office operational support in a modern corporate workspace.',
     responsibilities: [
-      'Enter customer account updates and purchase orders into ERP system with high keystroke accuracy',
-      'Review source documentation to verify accuracy and resolve discrepancies',
-      'Perform regular data cleansing, backups, and file archiving routines',
-      'Collaborate with accounting and dispatch teams to reconcile shipment data'
+      'Coordinate executive schedules, organize meeting agendas, and manage boardroom reservations',
+      'Prepare polished executive correspondence, financial spreadsheets, and presentation slide decks',
+      'Manage incoming business correspondence, vendor billings, and office inventory replenishment',
+      'Welcome visiting corporate partners and prospective talent with warmth and professionalism'
     ],
     qualifications: [
-      'Typing speed of 55+ WPM with 98% accuracy benchmark',
-      'Familiarity with spreadsheet functions (VLOOKUP, sorting, data validation)',
-      'High attention to detail and ability to maintain concentration on repetitive tasks',
-      'Strong computer literacy and alphanumeric data entry aptitude'
+      'Post-secondary diploma in Office Administration, Business Management, or equivalent experience',
+      'Advanced proficiency in Microsoft Office 365 (Word, Excel, PowerPoint, Outlook)',
+      'Exceptional organizational capabilities, time management, and multi-tasking under deadlines',
+      'Minimum 2 years of corporate administrative or office management experience'
     ],
-    experience: '0 - 1 year',
+    experience: '2 - 3 years',
     postedDate: '2 days ago',
     workArrangement: 'Hybrid · 3 Days On-site / 2 Days Remote',
-    cardImage: '/src/assets/images/service_workforce_collaboration_1794294128972.jpg'
-  },
-  {
-    id: 'job-3',
-    title: 'Office Coordinator',
-    location: 'Toronto, Ontario',
-    category: 'Administration & Office',
-    employmentType: 'Full-time',
-    hourlyRate: '$24.00 - $28.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Oversee general office operations, workplace facilities, employee onboarding logistics, and company event coordination.',
-    responsibilities: [
-      'Oversee day-to-day office facility needs, mail handling, and equipment servicing',
-      'Organize team onboarding packages, workspace setups, and security access passes',
-      'Liaise with building management, cleaning contractors, and maintenance personnel',
-      'Plan company team gatherings, catering arrangements, and client hospitality'
-    ],
-    qualifications: [
-      'College diploma in Business Administration, Communications, or related discipline',
-      '2+ years experience in workplace coordination or executive office management',
-      'Proactive problem-solver with exceptional interpersonal and verbal communication skills',
-      'Demonstrated budget management and invoice reconciliation experience'
-    ],
-    experience: '2 - 4 years',
-    postedDate: '3 days ago',
-    workArrangement: 'On-site · Downtown Toronto Office',
-    cardImage: '/src/assets/images/hero_diverse_professionals_1794294127960.jpg'
-  },
-  {
-    id: 'job-4',
-    title: 'Receptionist',
-    location: 'Brampton, Ontario',
-    category: 'Administration & Office',
-    employmentType: 'Part-time',
-    hourlyRate: '$18.50 - $21.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Provide an exceptional welcoming first impression for corporate visitors, answer incoming phone inquiries, and route calls.',
-    responsibilities: [
-      'Greet corporate clients, job candidates, and visitors with warmth and professionalism',
-      'Manage multi-line switchboard, screen calls, and take detailed telephone messages',
-      'Receive, sort, and distribute incoming courier packages and daily mail',
-      'Maintain a pristine, organized executive reception area and visitor sign-in log'
-    ],
-    qualifications: [
-      'Polished interpersonal presentation and warm customer-centric demeanor',
-      'Experience operating multi-line telephone switchboards',
-      'Basic proficiency in Microsoft Office and digital scheduling calendars',
-      'Fluent verbal and written English communication skills'
-    ],
-    experience: '1+ year',
-    postedDate: 'Just now',
-    workArrangement: 'On-site · Morning & Afternoon Shifts Available',
-    cardImage: '/src/assets/images/cat_office_reception_1794294598540.jpg'
-  },
-  {
-    id: 'job-5',
-    title: 'Customer Service Representative',
-    location: 'Greater Toronto Area',
-    category: 'Administration & Office',
-    employmentType: 'Full-time',
-    hourlyRate: '$20.00 - $23.50 / hr',
-    isVerifiedVacancy: true,
-    description: 'Deliver responsive customer care via telephone, email, and live ticketing for Canadian client accounts.',
-    responsibilities: [
-      'Resolve client product inquiries, shipping delivery updates, and order changes',
-      'Log customer support tickets and follow up on escalated service issues',
-      'Provide accurate information on service policies, warranties, and return guidelines',
-      'Maintain average customer satisfaction scores above 92%'
-    ],
-    qualifications: [
-      'Prior call center or retail customer service experience is an asset',
-      'Active listening skills with empathetic, solution-oriented phone presence',
-      'Familiarity with CRM ticketing software (Zendesk, Salesforce, or Freshdesk)',
-      'Ability to navigate multiple software screens while speaking with clients'
-    ],
-    experience: '1 - 2 years',
-    postedDate: '4 days ago',
-    workArrangement: 'On-site · Rotating Schedule (Mon - Sat)',
-    cardImage: '/src/assets/images/service_recruiter_interview_1794294128994.jpg'
+    cardImage: '/images/careers/admin_assistant.jpg'
   },
 
-  // --- Warehousing & Logistics ---
+  // 3. Warehouse Associate
   {
-    id: 'job-6',
+    id: 'job-3',
     title: 'Warehouse Associate',
     location: 'Brampton, Ontario',
     category: 'Warehousing & Logistics',
     employmentType: 'Full-time',
-    hourlyRate: '$19.00 - $21.50 / hr',
     isVerifiedVacancy: true,
-    description: 'Fulfill pick and pack orders, receive freight skids, and organize inventory in a clean distribution facility.',
+    description: 'Execute accurate inventory scanning, carton sorting, order fulfillment, and pallet staging in a clean, state-of-the-art distribution facility.',
     responsibilities: [
-      'Pick customer orders accurately using RF barcode scanners and pick-to-light systems',
-      'Inspect incoming cartons for damage, count quantities, and verify bill of lading',
-      'Wrap, palletize, and stage outbound shipments for daily carrier pick-up',
-      'Maintain strict compliance with Ontario health and safety standards'
+      'Scan and pick customer orders accurately utilizing RF handheld barcode scanners and pick-to-light systems',
+      'Verify incoming freight manifests against purchase orders and inspect carton integrity',
+      'Wrap, secure, and stage outbound skids for scheduled daily transport carrier departure',
+      'Maintain strict adherence to Ontario health and safety standards, clean aisle protocols, and WHMIS'
     ],
     qualifications: [
-      'Comfortable lifting up to 45 lbs safely and walking throughout shift',
-      'CSA-approved steel-toe footwear (green triangle)',
-      'Previous distribution center or stock replenishment experience preferred',
-      'Punctual and reliable team player with positive attitude'
+      'Previous distribution warehouse, order fulfillment, or replenishment experience preferred',
+      'Certified CSA-approved steel-toe safety footwear (green triangle benchmark)',
+      'Ability to comfortably handle moderate lifting (up to 40 lbs) safely throughout shift',
+      'Reliable team-player with strong punctuality and safety-first mindset'
     ],
-    experience: 'Entry to Mid',
-    postedDate: '1 day ago',
-    workArrangement: 'On-site · Day & Afternoon Shifts',
-    cardImage: '/src/assets/images/industry_logistics_warehouse_1794292533090.jpg'
-  },
-  {
-    id: 'job-7',
-    title: 'Inventory Control Assistant',
-    location: 'Mississauga, Ontario',
-    category: 'Warehousing & Logistics',
-    employmentType: 'Full-time',
-    hourlyRate: '$21.00 - $24.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Perform scheduled inventory cycle counts, audit warehouse bay locations, and reconcile SAP ERP balances.',
-    responsibilities: [
-      'Conduct daily physical cycle counts across assigned racking aisles',
-      'Investigate SKU variance, damaged products, and misplaced bin locations',
-      'Generate discrepancy variance reports for logistics management',
-      'Assist with annual physical inventory auditing and vendor return procedures'
-    ],
-    qualifications: [
-      '1+ years experience in inventory auditing or warehouse stock control',
-      'Proficiency in SAP, Manhattan, or Oracle WMS applications',
-      'Intermediate spreadsheet skills for numerical reconciliation',
-      'High attention to detail and analytical problem-solving mindset'
-    ],
-    experience: '1 - 3 years',
-    postedDate: '2 days ago',
+    experience: 'Entry to Mid Level',
+    postedDate: 'Just now',
     workArrangement: 'On-site · Day Shift (7:00 AM - 3:30 PM)',
-    cardImage: '/src/assets/images/industry_logistics_warehouse_1794292533090.jpg'
+    cardImage: '/images/careers/warehouse_associate.jpg'
   },
+
+  // 4. Logistics Coordinator
   {
-    id: 'job-8',
-    title: 'Forklift Operator',
-    location: 'Brampton, Ontario',
-    category: 'Warehousing & Logistics',
-    employmentType: 'Full-time',
-    hourlyRate: '$22.00 - $25.50 / hr',
-    isVerifiedVacancy: true,
-    description: 'Operate Raymond Reach, Walkie, and Counterbalance equipment to navigate high-density pallet racking safely.',
-    responsibilities: [
-      'Maneuver Raymond Reach equipment across narrow aisles to store and retrieve skids',
-      'Conduct daily pre-shift equipment safety checklist and battery charging maintenance',
-      'Stage pallets in staging lanes for transport trailers according to load sequence',
-      'Observe facility pedestrian speed limits and horn sounding protocols'
-    ],
-    qualifications: [
-      'Valid Forklift Certification (Counterbalance, Raymond Reach, or Walkie)',
-      'Minimum 1 year verifiable experience operating equipment in high-bay facility',
-      'Exceptional depth perception and clean workplace safety record',
-      'Valid CSA-approved steel-toe boots and high-visibility vest'
-    ],
-    experience: '1 - 3 years',
-    postedDate: '3 days ago',
-    workArrangement: 'On-site · Continental 12-hr Day & Night Shifts',
-    cardImage: '/src/assets/images/industry_logistics_warehouse_1794292533090.jpg'
-  },
-  {
-    id: 'job-9',
-    title: 'Shipping and Receiving Associate',
-    location: 'Toronto, Ontario',
-    category: 'Warehousing & Logistics',
-    employmentType: 'Full-time',
-    hourlyRate: '$20.50 - $23.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Coordinate freight carrier check-in, inspect inbound bills of lading, and prepare outbound international shipping documents.',
-    responsibilities: [
-      'Inspect incoming freight containers and cross-check packing slips with purchase orders',
-      'Prepare bills of lading, customs manifests, and courier shipping labels (FedEx/UPS)',
-      'Assign loading dock doors to arriving freight carriers and verify trailer wheel chocks',
-      'Maintain accurate logbooks of daily trailer arrivals and departures'
-    ],
-    qualifications: [
-      'Prior experience in shipping/receiving logistics or freight coordination',
-      'Familiarity with logistics documentation, BOLs, and customs paperwork',
-      'Computer proficiency in logistics ERP and carrier web portals',
-      'Comfortable working in a busy dock environment'
-    ],
-    experience: '1 - 2 years',
-    postedDate: '4 days ago',
-    workArrangement: 'On-site · Morning Shift (6:00 AM - 2:30 PM)',
-    cardImage: '/src/assets/images/industry_logistics_warehouse_1794292533090.jpg'
-  },
-  {
-    id: 'job-10',
+    id: 'job-4',
     title: 'Logistics Coordinator',
     location: 'Mississauga, Ontario',
     category: 'Warehousing & Logistics',
-    employmentType: 'Contract',
-    hourlyRate: '$25.00 - $29.00 / hr',
+    employmentType: 'Full-time',
     isVerifiedVacancy: true,
-    description: 'Track freight dispatch schedules, communicate with transport carriers, and optimize delivery route timelines.',
+    description: 'Manage freight shipments, track linehaul transport schedules, and coordinate carrier dispatch logistics across Canadian distribution corridors.',
     responsibilities: [
-      'Monitor nationwide freight shipments and expedite priority transit requests',
-      'Negotiate spot rates with third-party freight carriers and coordinate linehauls',
-      'Resolve in-transit delays, customs clearances, and dock appointment scheduling',
-      'Provide clients with real-time tracking milestones and delivery confirmations'
+      'Monitor nationwide intermodal shipments and optimize freight routing timelines',
+      'Liaise directly with transport carriers, dispatchers, and freight brokers to coordinate dock schedules',
+      'Prepare bills of lading (BOL), customs declarations, and commercial shipping documentation',
+      'Resolve transit exceptions, delivery delays, and customs clearances proactively'
     ],
     qualifications: [
-      'College diploma or degree in Supply Chain Management or Logistics',
-      '2+ years experience in 3PL transportation coordination or freight forwarding',
-      'Strong negotiation, analytical, and interpersonal skills',
-      'Working knowledge of Canadian freight corridors and cross-border customs'
+      'College diploma or bachelor’s degree in Supply Chain Management, Logistics, or related discipline',
+      '2+ years practical experience in logistics dispatch, freight forwarding, or 3PL operations',
+      'Working knowledge of Canadian transport corridors, cross-border shipping, and carrier portals',
+      'Proficiency in logistics TMS, SAP ERP, or Manhattan Associates WMS platforms'
     ],
     experience: '2 - 4 years',
-    postedDate: '5 days ago',
-    workArrangement: 'On-site · Mississauga Logistics Terminal',
-    cardImage: '/src/assets/images/service_hr_employer_solutions_1794294129678.jpg'
-  },
-
-  // --- Manufacturing & Production ---
-  {
-    id: 'job-11',
-    title: 'Production Associate',
-    location: 'Brampton, Ontario',
-    category: 'Manufacturing & Production',
-    employmentType: 'Full-time',
-    hourlyRate: '$19.50 - $22.50 / hr',
-    isVerifiedVacancy: true,
-    description: 'Operate automated production assembly stations, inspect finished components, and maintain plant cleanliness.',
-    responsibilities: [
-      'Assemble precision mechanical sub-components according to visual work instructions',
-      'Perform quality checks on finished goods to identify surface flaws or defects',
-      'Feed raw materials into automated stamping and molding machines',
-      'Participate in 5S workplace organization and lean manufacturing practices'
-    ],
-    qualifications: [
-      'High school diploma or Canadian secondary equivalent',
-      'Previous manufacturing or light assembly experience preferred',
-      'Attention to detail, hand dexterity, and commitment to plant safety rules',
-      'Comfortable standing for extended shift durations'
-    ],
-    experience: 'Entry to 1 year',
-    postedDate: '1 day ago',
-    workArrangement: 'On-site · Rotating Shifts (Day / Afternoon / Night)',
-    cardImage: '/src/assets/images/industry_advanced_manufacturing_1794292533879.jpg'
-  },
-  {
-    id: 'job-12',
-    title: 'Packaging Associate',
-    location: 'Mississauga, Ontario',
-    category: 'Manufacturing & Production',
-    employmentType: 'Full-time',
-    hourlyRate: '$18.50 - $21.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Package food-grade items and consumer goods along conveyor lines adhering strictly to GMP and hygiene regulations.',
-    responsibilities: [
-      'Operate automated cartoning, sealing, and labeling machinery on high-speed lines',
-      'Inspect printed expiration dates, lot numbers, and barcode readability',
-      'Pack retail-ready display cartons and build master shipping skids',
-      'Adhere to sanitation, hairnet, and clean-room health protocols'
-    ],
-    qualifications: [
-      'Familiarity with GMP (Good Manufacturing Practices) or food packaging standards',
-      'Fine motor skills and ability to keep pace with conveyor belts',
-      'Dependable attendance and positive team communication',
-      'CSA steel-toe shoes required'
-    ],
-    experience: '0 - 1 year',
-    postedDate: '2 days ago',
-    workArrangement: 'On-site · Monday to Friday Day Shift',
-    cardImage: '/src/assets/images/industry_advanced_manufacturing_1794292533879.jpg'
-  },
-  {
-    id: 'job-13',
-    title: 'Quality Control Assistant',
-    location: 'Ontario, Canada',
-    category: 'Manufacturing & Production',
-    employmentType: 'Full-time',
-    hourlyRate: '$22.50 - $26.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Sample production batches, measure dimensional tolerances using calipers and micrometers, and record QA audit logs.',
-    responsibilities: [
-      'Collect finished parts at predetermined intervals for physical and mechanical testing',
-      'Record measurement data in statistical process control (SPC) software',
-      'Tag and quarantine non-conforming lots and notify production supervisors',
-      'Assist QA manager in root-cause defect investigations and ISO 9001 audits'
-    ],
-    qualifications: [
-      'Diploma in Quality Assurance, Mechanical Technology, or related field',
-      'Ability to read technical engineering drawings and GD&T symbols',
-      'Familiarity with calipers, height gauges, micrometers, and torque wrenches',
-      'Meticulous record-keeping and analytical documentation skills'
-    ],
-    experience: '1 - 3 years',
     postedDate: '3 days ago',
-    workArrangement: 'On-site · Clean Industrial Facility',
-    cardImage: '/src/assets/images/industry_advanced_manufacturing_1794292533879.jpg'
-  },
-  {
-    id: 'job-14',
-    title: 'Machine Operator',
-    location: 'Brampton, Ontario',
-    category: 'Manufacturing & Production',
-    employmentType: 'Full-time',
-    hourlyRate: '$21.50 - $25.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Set up, calibrate, and operate automated stamping, CNC cutting, or extruding machinery in an advanced manufacturing plant.',
-    responsibilities: [
-      'Perform tool changes and calibration adjustments according to daily production run specs',
-      'Monitor machine gauges, cycle times, and temperature readouts to prevent malfunctions',
-      'Conduct routine preventative maintenance, cleaning, and lubrication on equipment',
-      'Document cycle throughput and material scrap rates at end of shift'
-    ],
-    qualifications: [
-      '1+ years verifiable experience operating automated industrial production machinery',
-      'Mechanical aptitude and ability to perform basic tool changes safely',
-      'Committed adherence to lockout/tagout (LOTO) safety protocols',
-      'High school diploma or technical vocational training'
-    ],
-    experience: '1 - 3 years',
-    postedDate: '4 days ago',
-    workArrangement: 'On-site · Continental Shifts',
-    cardImage: '/src/assets/images/industry_advanced_manufacturing_1794292533879.jpg'
-  },
-  {
-    id: 'job-15',
-    title: 'Assembly Line Worker',
-    location: 'Toronto, Ontario',
-    category: 'Manufacturing & Production',
-    employmentType: 'Temporary',
-    hourlyRate: '$18.50 - $20.50 / hr',
-    isVerifiedVacancy: true,
-    description: 'Assemble commercial fixtures, electronics enclosures, and automotive components using power drivers and fasteners.',
-    responsibilities: [
-      'Fasten parts using pneumatic screwdrivers, torque tools, and manual clamps',
-      'Verify that components align properly and meet production quality standards',
-      'Pass assembled units along line to next workstation in a coordinated pace',
-      'Keep work bench clean and report defective components immediately'
-    ],
-    qualifications: [
-      'Good physical coordination, manual dexterity, and stamina',
-      'Ability to follow step-by-step assembly diagrams and verbal instructions',
-      'Punctual and available for immediate start dates',
-      'Steel-toe safety footwear required'
-    ],
-    experience: 'Entry Level',
-    postedDate: '5 days ago',
-    workArrangement: 'On-site · Day Shift (7:00 AM - 3:30 PM)',
-    cardImage: '/src/assets/images/industry_advanced_manufacturing_1794292533879.jpg'
+    workArrangement: 'On-site · Logistics Operations Terminal',
+    cardImage: '/images/careers/logistics_coordinator.jpg'
   },
 
-  // --- Hospitality & Retail ---
+  // 5. IT Support Specialist
   {
-    id: 'job-16',
+    id: 'job-5',
+    title: 'IT Support Specialist',
+    location: 'Toronto, Ontario',
+    category: 'Professional & Technical',
+    employmentType: 'Full-time',
+    isVerifiedVacancy: true,
+    description: 'Deliver responsive technical troubleshooting, workstation deployment, network configuration, and user permissions management in an enterprise IT environment.',
+    responsibilities: [
+      'Diagnose and resolve tier-1/2 hardware, operating system, and SaaS software tickets via Jira Service Desk',
+      'Configure, image, and deploy Windows 11 and macOS enterprise laptops, monitors, and VoIP peripherals',
+      'Administer Microsoft 365, Active Directory, Azure AD, and multi-factor authentication credentials',
+      'Maintain comprehensive documentation of network printer mappings, software licenses, and IT assets'
+    ],
+    qualifications: [
+      'Diploma or degree in Computer Systems, Information Technology, or CompTIA A+ / Network+ certification',
+      'Strong technical aptitude across Windows, macOS, TCP/IP networking, VPNs, and cloud applications',
+      'Patient, customer-centric diagnostic manner when supporting non-technical team members',
+      '1 - 3 years experience in IT helpdesk, desktop support, or technician capacity'
+    ],
+    experience: '1 - 3 years',
+    postedDate: '2 days ago',
+    workArrangement: 'Hybrid · Tech Center Office',
+    cardImage: '/images/careers/it_support.jpg'
+  },
+
+  // 6. HR Assistant
+  {
+    id: 'job-6',
+    title: 'HR Assistant',
+    location: 'Brampton, Ontario',
+    category: 'Professional & Technical',
+    employmentType: 'Full-time',
+    isVerifiedVacancy: true,
+    description: 'Assist human resources leadership with candidate pre-screening, interview coordination, onboarding orientation, and confidential personnel file administration.',
+    responsibilities: [
+      'Review incoming candidate resumes against job requisitions and conduct initial phone screening interviews',
+      'Schedule formal interview panels between candidates and department hiring managers',
+      'Coordinate background checks, credential verifications, and digital employment contract packages',
+      'Assist with new-hire safety orientations, WHMIS records, and HRIS database administration'
+    ],
+    qualifications: [
+      'Post-secondary diploma or degree in Human Resources Management (CHRP candidate an asset)',
+      'Understanding of Ontario Employment Standards Act (ESA), human rights, and workplace privacy',
+      'High degree of confidentiality, emotional maturity, and professional verbal and written expression',
+      'Proficiency in ATS platforms, HRIS portals, and Microsoft Office'
+    ],
+    experience: '1 - 2 years',
+    postedDate: '4 days ago',
+    workArrangement: 'On-site · Brampton Corporate Headquarters',
+    cardImage: '/images/careers/hr_assistant.jpg'
+  },
+
+  // 7. Retail Sales Associate
+  {
+    id: 'job-7',
     title: 'Retail Sales Associate',
     location: 'Toronto, Ontario',
     category: 'Hospitality & Retail',
-    employmentType: 'Part-time',
-    hourlyRate: '$17.50 - $19.50 / hr',
-    isVerifiedVacancy: true,
-    description: 'Engage shoppers warmly, provide tailored product advice, manage cash register POS transactions, and restock merchandise.',
-    responsibilities: [
-      'Provide an inviting shopping experience by greeting customers and offering style advice',
-      'Operate digital POS cash registers and process cash, debit, and credit transactions',
-      'Maintain folded apparel displays, visual merchandising standards, and fitting rooms',
-      'Assist with receiving inventory shipments and security sensor tagging'
-    ],
-    qualifications: [
-      'Energetic, friendly customer-oriented personality with passion for retail',
-      'Cash handling experience and familiarity with retail POS systems',
-      'Flexible availability including weekends, evenings, and holiday periods',
-      'Strong interpersonal and English verbal communication skills'
-    ],
-    experience: '6 months - 1 year',
-    postedDate: '1 day ago',
-    workArrangement: 'On-site · Downtown Toronto Shopping Center',
-    cardImage: '/src/assets/images/cat_retail_store_1794294597267.jpg'
-  },
-  {
-    id: 'job-17',
-    title: 'Store Associate',
-    location: 'Mississauga, Ontario',
-    category: 'Hospitality & Retail',
     employmentType: 'Full-time',
-    hourlyRate: '$18.00 - $20.50 / hr',
     isVerifiedVacancy: true,
-    description: 'Maintain store inventory replenishment, assist customers on retail floor, and support stockroom receiving.',
+    description: 'Engage retail shoppers warmly, provide personalized product demonstrations, process checkout POS transactions, and maintain visual merchandising excellence.',
     responsibilities: [
-      'Replenish shelves, check inventory expiry dates, and ensure facing consistency',
-      'Guide shoppers to product aisles and answer questions regarding store promotions',
-      'Unload daily delivery pallets and stage backroom stock neatly',
-      'Assist cashiers during peak customer rush hours'
+      'Welcome customers with enthusiasm, listen to individual preferences, and offer curated product solutions',
+      'Process point-of-sale transactions accurately using digital registers, scanners, and gift card terminals',
+      'Replenish retail displays, maintain folded presentation standards, and assist with inventory deliveries',
+      'Answer customer questions regarding promotional events, loyalty programs, and warranty exchanges'
     ],
     qualifications: [
-      'Positive work ethic, punctuality, and helpful attitude',
-      'Ability to lift up to 35 lbs while restocking shelves',
-      'Comfortable standing and walking on retail sales floor',
-      'Eligible to work in Ontario'
+      'Customer-facing retail, hospitality, or sales experience with positive energy and outgoing personality',
+      'Cash handling accuracy and comfort utilizing digital POS register terminals',
+      'Flexible scheduling availability including weekend peak shopping and seasonal sales periods',
+      'Strong interpersonal communication and teamwork abilities'
     ],
-    experience: '0 - 1 year',
-    postedDate: '2 days ago',
-    workArrangement: 'On-site · Day & Evening Shifts',
-    cardImage: '/src/assets/images/cat_retail_store_1794294597267.jpg'
+    experience: '1+ year',
+    postedDate: '1 day ago',
+    workArrangement: 'On-site · Premier Toronto Retail Center',
+    cardImage: '/images/careers/retail_associate.jpg'
   },
+
+  // 8. Hotel Front Desk Associate
   {
-    id: 'job-18',
+    id: 'job-8',
     title: 'Hotel Front Desk Associate',
     location: 'Toronto, Ontario',
     category: 'Hospitality & Retail',
     employmentType: 'Full-time',
-    hourlyRate: '$20.00 - $23.00 / hr',
     isVerifiedVacancy: true,
-    description: 'Welcome hotel guests, manage reservations in Opera PMS, handle check-in/out procedures, and provide local concierge advice.',
+    description: 'Welcome international and domestic guests, manage hotel room reservations, handle check-in/out procedures, and provide concierge recommendations.',
     responsibilities: [
-      'Check guests in and out, assign room keys, and verify credit card authorizations',
-      'Coordinate with housekeeping and maintenance teams to ensure guest satisfaction',
-      'Answer guest inquiries regarding dining, transit, and local tourist attractions',
-      'Handle billing adjustments, special room requests, and VIP guest accommodations'
+      'Register arriving guests, issue room keys, verify payment credentials, and process departures efficiently',
+      'Operate Opera PMS to manage reservations, room assignments, and VIP guest preferences',
+      'Liaise seamlessly with housekeeping and facilities engineering teams to guarantee guest comfort',
+      'Offer helpful concierge recommendations regarding GTA transit, fine dining, and local tourist attractions'
     ],
     qualifications: [
-      'Diploma in Hospitality Management or equivalent customer service experience',
-      'Familiarity with hotel property management systems (Opera, Marriott PMS, or similar)',
-      'Impeccable professional grooming, poise, and hospitality etiquette',
-      'Excellent problem resolution skills under pressure'
-    ],
-    experience: '1 - 2 years',
-    postedDate: '3 days ago',
-    workArrangement: 'On-site · Upscale Hotel Property (Downtown Toronto)',
-    cardImage: '/src/assets/images/cat_hospitality_hotel_1794294596916.jpg'
-  },
-  {
-    id: 'job-19',
-    title: 'Housekeeping Associate',
-    location: 'Brampton, Ontario',
-    category: 'Hospitality & Retail',
-    employmentType: 'Part-time',
-    hourlyRate: '$17.50 - $19.50 / hr',
-    isVerifiedVacancy: true,
-    description: 'Clean and sanitize guest rooms, change linens, replenish bathroom amenities, and maintain pristine public hotel areas.',
-    responsibilities: [
-      'Thoroughly clean and sanitize guest rooms according to established hospitality protocols',
-      'Strip and remake beds with fresh hotel-grade linens and towels',
-      'Dust furniture, vacuum carpets, mop bathroom tiles, and restock amenities',
-      'Report maintenance deficiencies or lost-and-found items promptly'
-    ],
-    qualifications: [
-      'Meticulous eye for cleanliness and sanitation standards',
-      'Physical stamina to handle room turnover quotas in a timely manner',
-      'Reliable, respectful, and mindful of guest privacy',
-      'Prior hotel housekeeping or commercial cleaning experience preferred'
-    ],
-    experience: '0 - 1 year',
-    postedDate: '4 days ago',
-    workArrangement: 'On-site · Day Shifts (8:30 AM - 4:30 PM)',
-    cardImage: '/src/assets/images/cat_hospitality_hotel_1794294596916.jpg'
-  },
-  {
-    id: 'job-20',
-    title: 'Food Service Assistant',
-    location: 'Greater Toronto Area',
-    category: 'Hospitality & Retail',
-    employmentType: 'Temporary',
-    hourlyRate: '$17.50 - $19.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Support cafeteria and catering operations with meal staging, table setup, food temperature logging, and dishwashing.',
-    responsibilities: [
-      'Assist chefs with basic vegetable washing, portioning, and tray preparation',
-      'Set up buffet serving lines, beverage dispensers, and dining utensils',
-      'Maintain kitchen sanitation and operate commercial dishwashing machines',
-      'Follow Food Handler and public health hygiene standards strictly'
-    ],
-    qualifications: [
-      'Ontario Food Handler Certification is an asset (or willing to obtain)',
-      'Friendly customer service attitude during food service hours',
-      'Ability to stand on feet in commercial kitchen environment',
-      'Slip-resistant footwear required'
-    ],
-    experience: 'Entry Level',
-    postedDate: 'Just now',
-    workArrangement: 'On-site · Morning & Lunch Shifts',
-    cardImage: '/src/assets/images/cat_hospitality_hotel_1794294596916.jpg'
-  },
-
-  // --- Professional & Technical ---
-  {
-    id: 'job-21',
-    title: 'IT Support Assistant',
-    location: 'Toronto, Ontario',
-    category: 'Professional & Technical',
-    employmentType: 'Full-time',
-    hourlyRate: '$25.00 - $30.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Provide helpdesk technical assistance for desktop workstations, network connectivity, user accounts, and peripherals.',
-    responsibilities: [
-      'Respond to employee hardware/software helpdesk tickets via Jira or ServiceNow',
-      'Configure and deploy Windows 11/Mac laptops, monitors, and VoIP desk phones',
-      'Troubleshoot network printer connectivity, VPN access, and Office 365 permissions',
-      'Maintain an organized inventory of company IT assets, licenses, and cables'
-    ],
-    qualifications: [
-      'Diploma or degree in Computer Science, Information Technology, or CompTIA A+ certification',
-      'Working knowledge of Active Directory, Windows OS, macOS, and Microsoft 365 admin',
-      'Patient, customer-first approach to troubleshooting non-technical user issues',
-      'Strong diagnostic aptitude and eagerness to learn cloud environments'
-    ],
-    experience: '1 - 2 years',
-    postedDate: '1 day ago',
-    workArrangement: 'On-site / Hybrid · Tech Office',
-    cardImage: '/src/assets/images/cat_it_technology_1794294598174.jpg'
-  },
-  {
-    id: 'job-22',
-    title: 'Junior Accountant',
-    location: 'Mississauga, Ontario',
-    category: 'Professional & Technical',
-    employmentType: 'Full-time',
-    hourlyRate: '$26.00 - $32.00 / hr',
-    isVerifiedVacancy: true,
-    description: 'Assist controller with accounts payable/receivable, bank reconciliations, expense audits, and monthly journal entries.',
-    responsibilities: [
-      'Process vendor invoices, verify approval sign-offs, and prepare scheduled check runs',
-      'Reconcile monthly bank accounts and corporate credit card expense statements',
-      'Assist with month-end closing entries, trial balance verification, and GST/HST filings',
-      'Maintain clean digital audit trails for external financial reviews'
-    ],
-    qualifications: [
-      'Bachelor’s degree in Accounting, Finance, or Commerce (pursuing CPA designation an asset)',
-      '1+ years experience in general bookkeeping or junior accounting role',
-      'Strong proficiency in QuickBooks, Sage 50, or NetSuite, and advanced Excel',
-      'High numerical acumen and confidentiality with sensitive payroll data'
+      'Hospitality diploma or background in luxury guest relations, front desk, or hospitality operations',
+      'Hands-on familiarity with hotel property management systems (Opera, Marriott PMS, or similar)',
+      'Polished grooming, warm poise, and active commitment to hospitable excellence',
+      'Excellent problem-solving demeanor under busy check-in rush hours'
     ],
     experience: '1 - 3 years',
-    postedDate: '2 days ago',
-    workArrangement: 'Hybrid · 3 Days On-site / 2 Days Remote',
-    cardImage: '/src/assets/images/cat_finance_accounting_1794294598325.jpg'
+    postedDate: '3 days ago',
+    workArrangement: 'On-site · Upscale Hotel Property (Downtown Toronto)',
+    cardImage: '/images/careers/hotel_front_desk.jpg'
   },
+
+  // 9. Production Associate
   {
-    id: 'job-23',
-    title: 'HR Assistant',
+    id: 'job-9',
+    title: 'Production Associate',
     location: 'Brampton, Ontario',
-    category: 'Professional & Technical',
-    employmentType: 'Contract',
-    hourlyRate: '$23.00 - $27.00 / hr',
+    category: 'Manufacturing & Production',
+    employmentType: 'Full-time',
     isVerifiedVacancy: true,
-    description: 'Support human resources department with candidate pre-screening, interview scheduling, new-hire paperwork, and employee files.',
+    description: 'Operate clean automated production equipment, inspect precision mechanical assemblies, and maintain lean manufacturing 5S plant standards.',
     responsibilities: [
-      'Screen resumes against job requisitions and conduct initial phone interviews',
-      'Schedule interviews between hiring managers and prospective candidates',
-      'Coordinate background checks, reference calls, and digital employment contracts',
-      'Maintain confidential digital employee personnel files in HRIS software'
+      'Assemble mechanical components according to standardized engineering work instructions and diagrams',
+      'Operate automated stamping, molding, and finishing equipment in a clean manufacturing environment',
+      'Perform in-process dimensional verifications to identify component flaws before secondary processing',
+      'Participate actively in shift handover meetings, safety audits, and continuous improvement initiatives'
     ],
     qualifications: [
-      'Post-secondary certificate or diploma in Human Resources Management (CHRP candidate)',
-      'Understanding of Ontario Employment Standards Act (ESA) and workplace human rights',
-      'Discretion, empathy, and professional verbal and written communication',
-      'Proficiency in ATS (Applicant Tracking Systems) and MS Office'
+      'Ontario secondary school diploma or equivalent technical training',
+      '1+ years manufacturing, light assembly, or automated machinery experience preferred',
+      'Solid mechanical dexterity, physical stamina, and commitment to plant safety standards',
+      'CSA steel-toe protective footwear required'
     ],
     experience: '1 - 2 years',
-    postedDate: '3 days ago',
-    workArrangement: 'On-site · Brampton Corporate Office',
-    cardImage: '/src/assets/images/service_hr_employer_solutions_1794294129678.jpg'
+    postedDate: '2 days ago',
+    workArrangement: 'On-site · Continental Day & Afternoon Shifts',
+    cardImage: '/images/careers/production_associate.jpg'
   },
+
+  // 10. Quality Control Assistant
   {
-    id: 'job-24',
+    id: 'job-10',
+    title: 'Quality Control Assistant',
+    location: 'Ontario, Canada',
+    category: 'Manufacturing & Production',
+    employmentType: 'Full-time',
+    isVerifiedVacancy: true,
+    description: 'Inspect manufactured goods, measure tolerances using precision gauges, conduct batch testing, and record detailed quality audit logs.',
+    responsibilities: [
+      'Sample finished production lots and test dimensional parameters against engineering specifications',
+      'Utilize calipers, micrometers, pin gauges, and optical comparators with high precision',
+      'Tag, quarantine, and document non-conforming batches in statistical process control (SPC) software',
+      'Assist the QA Manager in root-cause defect analysis, corrective action plans, and ISO 9001 compliance'
+    ],
+    qualifications: [
+      'Post-secondary diploma in Quality Assurance, Mechanical Engineering Technology, or related science',
+      'Ability to read and interpret technical blueprints, engineering drawings, and GD&T specifications',
+      'Meticulous documentation standards, analytical critical thinking, and attention to detail',
+      'Prior quality inspection experience in an industrial or laboratory setting'
+    ],
+    experience: '1 - 3 years',
+    postedDate: 'Just now',
+    workArrangement: 'On-site · Quality Testing Facility',
+    cardImage: '/images/careers/quality_control.jpg'
+  },
+
+  // 11. Marketing Assistant
+  {
+    id: 'job-11',
     title: 'Marketing Assistant',
     location: 'Toronto, Ontario',
     category: 'Professional & Technical',
     employmentType: 'Full-time',
-    hourlyRate: '$24.00 - $28.00 / hr',
     isVerifiedVacancy: true,
-    description: 'Assist marketing team with social media scheduling, digital campaigns, recruitment flyers, and industry event planning.',
+    description: 'Support corporate marketing campaigns, draft engaging social media content, design promotional recruitment collateral, and analyze engagement metrics.',
     responsibilities: [
-      'Draft engaging copy for LinkedIn, Instagram, and corporate job postings',
-      'Design clean promotional graphics and hiring collateral using Canva or Adobe Creative Suite',
-      'Track website traffic metrics, job application clicks, and ad campaign performance',
-      'Coordinate logistics for corporate job fairs, campus hiring, and trade exhibitions'
+      'Draft compelling copy for LinkedIn, Instagram, newsletters, and digital recruitment announcements',
+      'Design clean visual graphics, flyers, and job spotlight banners using Canva and Adobe Creative Suite',
+      'Monitor website traffic analytics, applicant conversion rates, and digital ad campaign performance',
+      'Assist with organizing regional career fairs, networking events, and employer showcase exhibitions'
     ],
     qualifications: [
-      'Degree or diploma in Marketing, Digital Media, or Public Relations',
-      'Experience managing branded social media accounts and email marketing platforms',
-      'Strong eye for graphic layout, copywriting, and visual brand consistency',
-      'Organized, energetic, and collaborative team player'
+      'Degree or diploma in Marketing, Digital Communications, Public Relations, or Graphic Design',
+      'Demonstrated portfolio or experience managing professional social media and digital content',
+      'Sharp visual aesthetic, creative storytelling ability, and meticulous copywriting attention to detail',
+      'Energetic team collaborator who thrives in a fast-paced creative work culture'
     ],
     experience: '1 - 2 years',
     postedDate: '4 days ago',
     workArrangement: 'Hybrid · Toronto Creative Office',
-    cardImage: '/src/assets/images/careers_talent_success_1794294130524.jpg'
+    cardImage: '/images/careers/marketing_assistant.jpg'
   },
+
+  // 12. Junior Accountant
   {
-    id: 'job-25',
-    title: 'Customer Support Specialist',
-    location: 'Greater Toronto Area',
+    id: 'job-12',
+    title: 'Junior Accountant',
+    location: 'Mississauga, Ontario',
     category: 'Professional & Technical',
     employmentType: 'Full-time',
-    hourlyRate: '$22.00 - $26.00 / hr',
     isVerifiedVacancy: true,
-    description: 'Provide technical troubleshooting and account resolution for software users, answering tier-2 tickets via chat and phone.',
+    description: 'Support the corporate accounting department with accounts payable/receivable, bank reconciliations, expense reporting, and general ledger journal entries.',
     responsibilities: [
-      'Investigate complex customer software issues and guide users through step-by-step resolution',
-      'Collaborate with product and engineering teams to document bug reports and feature requests',
-      'Author user knowledge-base articles and FAQ documentation to facilitate self-service',
-      'Meet team SLA response targets while maintaining high customer satisfaction'
+      'Process vendor invoices, verify department approvals, and prepare scheduled weekly payment batches',
+      'Perform monthly bank, corporate credit card, and petty cash account reconciliations',
+      'Assist with month-end closing routines, journal entries, and GST/HST tax filing preparations',
+      'Maintain structured digital financial audit trails in compliance with Canadian accounting standards'
     ],
     qualifications: [
-      '2+ years experience in technical support, software customer success, or SaaS helpdesk',
-      'Excellent analytical thinking and clear technical writing ability',
-      'Comfortable learning new software dashboards and API troubleshooting tools',
-      'Patient and empathetic problem-solver'
+      'Bachelor’s degree or diploma in Accounting, Finance, or Commerce (actively pursuing CPA is an asset)',
+      '1 - 2 years practical bookkeeping, junior accounting, or finance department experience',
+      'Strong proficiency with accounting software (QuickBooks, Sage, or NetSuite) and intermediate Excel (VLOOKUP, Pivot)',
+      'High mathematical precision, integrity, and absolute discretion with confidential corporate financial data'
     ],
-    experience: '2+ years',
-    postedDate: 'Just now',
-    workArrangement: 'On-site / Hybrid · GTA Tech Hub',
-    cardImage: '/src/assets/images/service_workforce_collaboration_1794294128972.jpg'
+    experience: '1 - 3 years',
+    postedDate: '3 days ago',
+    workArrangement: 'Hybrid · 3 Days On-site / 2 Days Remote',
+    cardImage: '/images/careers/junior_accountant.jpg'
   }
 ];

@@ -7,6 +7,7 @@ import { Services } from './components/Services';
 import { Industries } from './components/Industries';
 import { GlobalOpportunities } from './components/GlobalOpportunities';
 import { WhyChooseMaple } from './components/WhyChooseMaple';
+import { EmployerSection } from './components/EmployerSection';
 import { CareersPortal } from './components/CareersPortal';
 import { FeaturedJobs } from './components/FeaturedJobs';
 import { Testimonials } from './components/Testimonials';
@@ -67,14 +68,35 @@ export default function App() {
     fetchApplicationsCount();
   }, []);
 
-  // Smooth scroll handler
+  // Active section scroll spy to update navbar dynamically
+  useEffect(() => {
+    const sectionIds = ['contact', 'careers', 'industries', 'services', 'about', 'home'];
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 120;
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && scrollPosition >= el.offsetTop) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Smooth scroll handler with offset for sticky navbar
   const handleNavigate = (sectionId: string) => {
     setActiveSection(sectionId);
+    if (sectionId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    } else if (sectionId === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const yOffset = -75;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
@@ -94,7 +116,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F8F7] text-[#10243A] flex flex-col font-sans selection:bg-[#159B78]/20 selection:text-[#10243A]">
+    <div className="min-h-screen bg-[#F3F3E7] text-[#590907] flex flex-col font-sans selection:bg-[#A5A79B]/35 selection:text-[#590907]">
       
       {/* 1. Sticky Navigation Bar */}
       <Navbar
@@ -108,10 +130,15 @@ export default function App() {
       <main className="flex-1">
         
         {/* 2. Hero Section */}
-        <section id="home">
+        <section id="home" className="scroll-mt-24">
           <Hero
             onExploreCareers={() => handleNavigate('careers')}
-            onExploreSolutions={() => handleNavigate('services')}
+            onExploreSolutions={() => {
+              setContactSubject('Employer Staffing Support Inquiry');
+              handleNavigate('contact');
+            }}
+            onExploreAbout={() => handleNavigate('about')}
+            onExploreGlobal={() => handleNavigate('global')}
           />
         </section>
 
@@ -146,7 +173,15 @@ export default function App() {
         {/* 8. Why Choose Maple */}
         <WhyChooseMaple />
 
-        {/* 9. Featured Opportunities Section on Homepage */}
+        {/* 9. Distinct Feature Section for Employers */}
+        <EmployerSection
+          onRequestStaffing={() => {
+            setContactSubject('Corporate Staffing Support Inquiry');
+            handleNavigate('contact');
+          }}
+        />
+
+        {/* 10. Featured Opportunities Section on Homepage */}
         <FeaturedJobs
           jobs={jobs}
           onOpenDetails={(job) => setSelectedJobForDetails(job)}
@@ -154,7 +189,7 @@ export default function App() {
           onViewAllJobs={() => handleNavigate('careers')}
         />
 
-        {/* 10. Completely Redesigned Careers Page & Portal (25+ Listings) */}
+        {/* 11. Completely Redesigned Careers Page & Portal (25+ Listings) */}
         <CareersPortal
           jobs={jobs}
           onOpenDetails={(job) => setSelectedJobForDetails(job)}
@@ -163,10 +198,10 @@ export default function App() {
           initialCategory={careersCategoryFilter}
         />
 
-        {/* 10. Testimonials & Client Trust */}
+        {/* 12. Testimonials & Client Trust */}
         <Testimonials />
 
-        {/* 11. Contact Us Page / Section */}
+        {/* 13. Contact Us Page / Section */}
         <ContactUs
           initialSubject={contactSubject}
         />

@@ -4,7 +4,7 @@ export interface JobListing {
   location: string;
   category: string; // Administration & Office | Warehousing & Logistics | Manufacturing & Production | Hospitality & Retail | Professional & Technical
   employmentType: 'Full-time' | 'Part-time' | 'Contract' | 'Temporary';
-  hourlyRate: string;
+  hourlyRate?: string;
   isVerifiedVacancy: boolean; // false = sample recruitment benchmark, true = verified live vacancy
   description: string;
   responsibilities: string[];

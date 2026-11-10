@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Globe, Shield, Check, X, MapPin } from 'lucide-react';
+import { motion } from 'motion/react';
+import { ArrowRight, Globe, Shield, Check, X, MapPin, Sparkles } from 'lucide-react';
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 interface GlobalOpportunitiesProps {
@@ -19,9 +20,9 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
       flag: '🇨🇦',
       region: 'Ontario (GTA Corridor)',
       status: 'Primary Hub & Headquarters',
-      highlight: 'Direct access to high-bay warehousing, advanced manufacturing, food packaging, and construction.',
-      details: 'Based in Brampton, Maple Staffing Solutions provides domestic recruitment across the Greater Toronto Area (Mississauga, Brampton, Toronto, Vaughan). We connect authorized workers with licensed, safety-compliant Canadian employers offering competitive hourly wages.',
-      sectors: ['Warehousing & Distribution', 'Automotive Assembly', 'Food & CPG Packaging', 'Construction Trades']
+      highlight: 'Direct access to high-bay warehousing, corporate administration, manufacturing, and retail.',
+      details: 'Based in Brampton, Maple Staffing Solutions provides domestic recruitment across the Greater Toronto Area (Mississauga, Brampton, Toronto, Vaughan). We connect authorized workers with licensed, safety-compliant Canadian employers offering competitive employment conditions.',
+      sectors: ['Administration & Office', 'Warehousing & Distribution', 'Manufacturing & Assembly', 'Hospitality & Retail']
     },
     {
       country: 'Australia',
@@ -75,69 +76,87 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
   }, [activeDest]);
 
   return (
-    <section className="py-20 sm:py-28 bg-[#10243A] text-white relative overflow-hidden">
+    <section id="global" className="py-20 sm:py-28 bg-[#590907] text-white relative overflow-hidden border-t border-[#7F011F] scroll-mt-24">
       {/* Background ambient accents */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#159B78]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#7F011F]/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#890149]/20 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="max-w-3xl mb-14 space-y-3">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#159B78] uppercase tracking-wider">
-            <Globe className="w-3.5 h-3.5" />
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mb-14 space-y-3"
+        >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 text-xs font-bold text-[#F5EBD0] uppercase tracking-widest border border-white/10">
+            <Globe className="w-3.5 h-3.5 text-[#A5A79B]" />
             <span>International Employment Network</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
-            Global Opportunities. Transparent Pathways.
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#F3F3E7] leading-[1.15] font-heading">
+            Global Opportunities.{' '}
+            <span className="text-[#F5EBD0]">Transparent Pathways.</span>
           </h2>
-          <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+          <p className="text-[#F5EBD0]/90 text-base sm:text-lg leading-relaxed font-body">
             Connecting motivated international talent with qualified employers worldwide. We emphasize rigorous skill verification, authentic employment standards, and ethical recruitment practices.
           </p>
-        </div>
+        </motion.div>
 
         {/* Responsible Notice Banner */}
-        <div className="mb-10 p-4 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3.5 text-xs sm:text-sm text-slate-300">
-          <Shield className="w-5 h-5 text-[#159B78] shrink-0 mt-0.5" />
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-10 p-5 rounded-2xl bg-[#7F011F]/40 border border-[#7F011F] flex items-start gap-4 text-xs sm:text-sm text-[#F5EBD0]"
+        >
+          <Shield className="w-5 h-5 text-[#A5A79B] shrink-0 mt-0.5" />
           <div>
-            <span className="font-semibold text-white">Ethical Recruitment Notice: </span>
+            <span className="font-bold text-white font-heading">Ethical Recruitment Notice: </span>
             Maple Staffing Solutions does not charge candidate placement fees for Canadian employment, nor do we issue immigration guarantees. Employment decisions and visas are strictly determined by authorized employers and national immigration authorities.
           </div>
-        </div>
+        </motion.div>
 
         {/* Destination Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {destinations.map((dest, idx) => (
-            <div
+            <motion.div
               key={idx}
-              className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#159B78]/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: idx * 0.08 }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#A5A79B]/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-3xl" role="img" aria-label={dest.country}>
                     {dest.flag}
                   </span>
-                  <span className="text-[11px] font-semibold text-[#159B78] bg-[#159B78]/15 px-2.5 py-1 rounded-md">
+                  <span className="text-[11px] font-bold text-[#590907] bg-[#F5EBD0] px-2.5 py-1 rounded-full shadow-sm">
                     {dest.status}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#159B78] transition-colors">
+                <h3 className="text-xl font-bold text-[#F3F3E7] mb-1 group-hover:text-[#F5EBD0] transition-colors font-heading">
                   {dest.country}
                 </h3>
-                <div className="text-xs text-slate-400 mb-3 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#159B78]" />
+                <div className="text-xs text-[#F5EBD0]/70 mb-3 flex items-center gap-1.5 font-medium">
+                  <MapPin className="w-3.5 h-3.5 text-[#A5A79B]" />
                   <span>{dest.region}</span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-[#F5EBD0]/85 leading-relaxed mb-4 font-body">
                   {dest.highlight}
                 </p>
 
                 <div className="space-y-1.5 mb-6">
                   {dest.sectors.slice(0, 2).map((sec, sIdx) => (
-                    <div key={sIdx} className="text-xs text-slate-400 flex items-center gap-2">
-                      <Check className="w-3 h-3 text-[#159B78]" />
+                    <div key={sIdx} className="text-xs text-[#F5EBD0]/75 flex items-center gap-2">
+                      <Check className="w-3 h-3 text-[#A5A79B]" />
                       <span>{sec}</span>
                     </div>
                   ))}
@@ -147,25 +166,27 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
               <div className="pt-4 border-t border-white/10 flex items-center justify-between">
                 <button
                   onClick={() => setSelectedDestination(dest.country)}
-                  className="text-xs font-semibold text-white group-hover:text-[#159B78] flex items-center gap-1.5 transition-colors focus:outline-none"
+                  className="text-xs font-bold text-[#F5EBD0] group-hover:text-white flex items-center gap-1.5 transition-colors focus:outline-none cursor-pointer"
                 >
                   <span>Explore Market</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Section Bottom CTA */}
-        <div className="mt-12 text-center">
-          <button
+        <div className="mt-14 text-center">
+          <motion.button
+            whileHover={{ scale: 1.03, backgroundColor: '#FFFFFF', color: '#590907' }}
+            whileTap={{ scale: 0.97 }}
             onClick={onExploreCareers}
-            className="px-7 py-3.5 text-sm font-semibold bg-[#159B78] hover:bg-[#128264] text-white rounded-lg transition-all duration-200 shadow-md inline-flex items-center gap-2"
+            className="px-8 py-3.5 text-sm font-semibold bg-[#F5EBD0] text-[#590907] rounded-xl transition-all duration-200 shadow-lg inline-flex items-center gap-2 cursor-pointer"
           >
             <span>Explore International Opportunities</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+            <ArrowRight className="w-4 h-4 text-[#7F011F]" />
+          </motion.button>
         </div>
 
       </div>
@@ -178,33 +199,33 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
           }}
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200 modal-backdrop"
         >
-          <div className="bg-[#10243A] border border-white/20 text-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative modal-dialog">
+          <div className="bg-[#590907] border border-[#7F011F] text-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative modal-dialog">
             <button
               onClick={() => setSelectedDestination(null)}
-              className="absolute top-5 right-5 p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              className="absolute top-5 right-5 p-2 text-[#F5EBD0] hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3.5 mb-5">
               <span className="text-4xl">{activeDest.flag}</span>
               <div>
-                <h3 className="text-2xl font-bold text-white">{activeDest.country}</h3>
-                <span className="text-xs text-[#159B78] font-medium">{activeDest.region}</span>
+                <h3 className="text-2xl font-bold text-white font-heading">{activeDest.country}</h3>
+                <span className="text-xs text-[#A5A79B] font-semibold tracking-wide uppercase">{activeDest.region}</span>
               </div>
             </div>
 
-            <p className="text-sm text-slate-300 leading-relaxed mb-6">
+            <p className="text-sm text-[#F5EBD0] leading-relaxed mb-6 font-body">
               {activeDest.details}
             </p>
 
-            <div className="mb-6">
-              <div className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+            <div className="mb-6 bg-white/5 p-4 rounded-xl border border-white/10">
+              <div className="text-xs font-bold text-[#A5A79B] uppercase tracking-wider mb-2.5">
                 Active Hiring Sectors:
               </div>
               <div className="flex flex-wrap gap-2">
                 {activeDest.sectors.map((sec, idx) => (
-                  <span key={idx} className="text-xs bg-white/10 text-slate-200 px-3 py-1 rounded-md border border-white/10">
+                  <span key={idx} className="text-xs bg-white/10 text-[#F5EBD0] px-3 py-1 rounded-lg border border-white/10 font-medium">
                     {sec}
                   </span>
                 ))}
@@ -217,13 +238,13 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
                   setSelectedDestination(null);
                   onContactGlobal(activeDest.country);
                 }}
-                className="px-5 py-2.5 bg-[#159B78] hover:bg-[#128264] text-white text-xs font-semibold rounded-lg transition-colors"
+                className="px-6 py-2.5 bg-[#F5EBD0] hover:bg-white text-[#590907] text-xs font-bold rounded-xl transition-colors cursor-pointer shadow-md"
               >
                 Inquire for {activeDest.country}
               </button>
               <button
                 onClick={() => setSelectedDestination(null)}
-                className="text-xs text-slate-400 hover:text-white"
+                className="text-xs text-[#F5EBD0] hover:text-white font-semibold cursor-pointer"
               >
                 Close
               </button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Upload, CheckCircle2, AlertCircle, FileText, Loader2, ShieldCheck, MapPin } from 'lucide-react';
+import { X, Upload, CheckCircle2, AlertCircle, FileText, Loader2, ShieldCheck, MapPin, Briefcase } from 'lucide-react';
 import { JobListing } from '../types';
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
@@ -60,18 +60,17 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
     const isValidExt = validExtensions.some(ext => fileName.endsWith(ext));
 
     if (!isValidExt) {
-      setErrorMsg('Please upload a resume in PDF, DOC, or DOCX format.');
+      setErrorMsg('Please upload a valid document in PDF, DOC, or DOCX format.');
       return;
     }
 
     if (file.size > 10 * 1024 * 1024) {
-      setErrorMsg('File size exceeds the 10 MB limit. Please upload a smaller file.');
+      setErrorMsg('File size exceeds the 10MB limit. Please upload a smaller resume.');
       return;
     }
 
     setErrorMsg(null);
 
-    // Read as Base64 to send to backend API
     const reader = new FileReader();
     reader.onload = () => {
       setResumeFile({
@@ -80,6 +79,9 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
         type: file.type || 'application/octet-stream',
         dataBase64: reader.result as string
       });
+    };
+    reader.onerror = () => {
+      setErrorMsg('Failed to read the selected file. Please try again.');
     };
     reader.readAsDataURL(file);
   };
@@ -93,151 +95,145 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
       return;
     }
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setErrorMsg('Please provide a valid email address.');
+      setErrorMsg('Please enter a valid email address.');
       return;
     }
-    if (!phone.trim() || phone.length < 7) {
-      setErrorMsg('Please provide a valid phone number.');
+    if (!phone.trim()) {
+      setErrorMsg('Phone Number is required.');
       return;
     }
     if (!currentCountry.trim()) {
-      setErrorMsg('Current country is required.');
+      setErrorMsg('Current Country is required.');
       return;
     }
     if (!currentCity.trim()) {
-      setErrorMsg('Current city is required.');
+      setErrorMsg('Current City is required.');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
+      const payload = {
+        jobId: job ? job.id : 'general-application',
+        jobTitle: job ? job.title : preferredJob || 'General Placement',
+        fullName,
+        email,
+        phone,
+        currentCountry,
+        currentCity,
+        preferredLocation,
+        preferredJob,
+        workExperience,
+        additionalInfo,
+        resumeFile: resumeFile || undefined
+      };
+
       const response = await fetch('/api/applications', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          jobId: job ? job.id : 'general-application',
-          jobTitle: job ? job.title : preferredJob,
-          fullName,
-          email,
-          phone,
-          currentCountry,
-          currentCity,
-          preferredLocation,
-          preferredJob,
-          workExperience,
-          additionalInfo,
-          resumeFile
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.error || 'Failed to submit application. Please try again.');
+        throw new Error(data.error || 'Failed to submit candidate application.');
       }
 
       setSuccessData({
         ref: data.referenceNumber,
         message: data.message
       });
+
       onApplicationSuccess(data.referenceNumber);
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'An error occurred during submission.';
+      const message = err instanceof Error ? err.message : 'A network error occurred. Please try again.';
       setErrorMsg(message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const resetFormAndClose = () => {
+    setSuccessData(null);
+    setErrorMsg(null);
+    onClose();
+  };
+
   return (
     <div
       onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) resetFormAndClose();
       }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs overflow-y-auto modal-backdrop"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto modal-backdrop animate-in fade-in duration-200"
     >
-      <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto modal-dialog">
+      <div className="bg-[#F3F3E7] rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative my-8 max-h-[92vh] overflow-y-auto modal-dialog border border-[#F5EBD0]">
         
         {/* Close Button */}
         <button
-          onClick={onClose}
-          className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+          onClick={resetFormAndClose}
+          className="absolute top-5 right-5 p-2 text-[#590907] hover:text-[#7F011F] hover:bg-[#F5EBD0] rounded-xl transition-colors cursor-pointer"
           aria-label="Close application form"
         >
           <X className="w-5 h-5" />
         </button>
 
         {successData ? (
-          /* Real Backend Success Screen */
-          <div className="py-6 text-center space-y-4">
-            <div className="w-16 h-16 bg-[#159B78]/10 text-[#159B78] rounded-full flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-10 h-10" />
+          <div className="py-8 text-center space-y-4">
+            <div className="w-16 h-16 bg-[#F5EBD0] text-[#7F011F] rounded-full flex items-center justify-center mx-auto shadow-sm">
+              <CheckCircle2 className="w-9 h-9" />
             </div>
-            
-            <div className="text-xs font-bold text-[#159B78] uppercase tracking-wider">
-              Application Verified & Transmitted
-            </div>
-            
-            <h3 className="text-2xl font-bold text-[#10243A]">
-              Thank You, {fullName}!
+
+            <h3 className="text-2xl font-bold text-[#590907] font-heading">
+              Application Submitted Successfully!
             </h3>
 
-            <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-              Your application for <strong>{job ? job.title : preferredJob}</strong> has been received by the Maple Staffing Solutions recruitment team in Brampton, ON.
+            <div className="p-4 rounded-xl bg-white border border-[#F5EBD0] text-xs max-w-md mx-auto space-y-1">
+              <div className="text-[#590907]/70 font-medium">Candidate Reference Code:</div>
+              <div className="font-mono text-base font-extrabold text-[#7F011F] tracking-wider">
+                {successData.ref}
+              </div>
+            </div>
+
+            <p className="text-xs sm:text-sm text-[#590907]/85 max-w-md mx-auto leading-relaxed font-body">
+              Thank you, <strong>{fullName}</strong>. Your profile for <strong>{job ? job.title : preferredJob}</strong> has been delivered to our recruitment team in Brampton, Ontario. Zero candidate fees are charged.
             </p>
 
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 max-w-sm mx-auto text-left">
-              <div className="text-xs text-slate-500 font-medium">Application Reference Number</div>
-              <div className="text-lg font-mono font-bold text-[#10243A]">{successData.ref}</div>
-              <div className="text-xs text-slate-500 mt-1">Status: <span className="text-[#159B78] font-semibold">Under Review</span></div>
-            </div>
-
-            <div className="text-xs text-slate-500 max-w-md mx-auto">
-              Our recruitment specialists evaluate credentials against client facility requirements. If selected, our dispatch team will contact you via phone or email for a preliminary screening interview.
-            </div>
-
-            <div className="pt-4 flex justify-center gap-3">
+            <div className="pt-2">
               <button
-                onClick={onClose}
-                className="px-6 py-2.5 bg-[#10243A] hover:bg-[#163352] text-white text-sm font-semibold rounded-lg transition-colors"
+                onClick={resetFormAndClose}
+                className="px-6 py-2.5 bg-[#7F011F] hover:bg-[#590907] text-white text-xs sm:text-sm font-semibold rounded-xl transition-colors cursor-pointer shadow-md"
               >
-                Return to Job Portal
+                Done / Return to Jobs
               </button>
             </div>
           </div>
         ) : (
-          /* Application Form */
           <div>
-            <div className="mb-6">
-              <img
-                src="/logo-transparent.png"
-                alt="Maple Staffing Solutions"
-                className="h-8 w-auto object-contain mb-3"
-              />
-              <div className="text-xs font-bold text-[#159B78] uppercase tracking-wider mb-1">
+            
+            {/* Modal Header */}
+            <div className="mb-6 pb-4 border-b border-[#F5EBD0]">
+              <span className="text-xs font-bold text-[#7F011F] uppercase tracking-wider block mb-1">
                 Candidate Application
-              </div>
-              <h3 className="text-2xl font-bold text-[#10243A]">
-                {job ? `Apply for ${job.title}` : 'Submit Your Candidate Profile'}
-              </h3>
+              </span>
+              <h2 className="text-2xl font-extrabold text-[#590907] font-heading">
+                {job ? `Apply: ${job.title}` : 'Submit General Resume'}
+              </h2>
               {job && (
-                <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#159B78]" />
+                <div className="flex items-center gap-2 text-xs text-[#590907]/75 mt-1 font-body">
                   <span>{job.location}</span>
                   <span>·</span>
                   <span>{job.employmentType}</span>
                   <span>·</span>
-                  <span className="font-semibold text-slate-700">{job.hourlyRate}</span>
+                  <span className="font-semibold text-[#7F011F]">{job.category}</span>
                 </div>
               )}
             </div>
 
             {errorMsg && (
-              <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3 text-xs sm:text-sm text-red-700">
-                <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+              <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3 text-xs sm:text-sm text-red-800">
+                <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-600" />
                 <div>{errorMsg}</div>
               </div>
             )}
@@ -247,7 +243,7 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
               {/* Row 1: Full Name & Email */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#590907] mb-1.5">
                     Full Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -256,12 +252,12 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Jaswinder Singh / Sarah Jenkins"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#159B78]"
+                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#F5EBD0] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] text-[#590907]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#590907] mb-1.5">
                     Email Address <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -270,7 +266,7 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="candidate@example.com"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#159B78]"
+                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#F5EBD0] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] text-[#590907]"
                   />
                 </div>
               </div>
@@ -278,7 +274,7 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
               {/* Row 2: Phone & Country */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#590907] mb-1.5">
                     Phone Number <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -287,12 +283,12 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+1 (905) 555-0192"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#159B78]"
+                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#F5EBD0] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] text-[#590907]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#590907] mb-1.5">
                     Current Country <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -301,7 +297,7 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                     value={currentCountry}
                     onChange={(e) => setCurrentCountry(e.target.value)}
                     placeholder="Canada, India, Philippines, etc."
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#159B78]"
+                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#F5EBD0] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] text-[#590907]"
                   />
                 </div>
               </div>
@@ -309,7 +305,7 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
               {/* Row 3: Current City & Preferred Work Location */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#590907] mb-1.5">
                     Current City <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -318,12 +314,12 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                     value={currentCity}
                     onChange={(e) => setCurrentCity(e.target.value)}
                     placeholder="Brampton, Mississauga, Toronto, etc."
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#159B78]"
+                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#F5EBD0] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] text-[#590907]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#590907] mb-1.5">
                     Preferred Work Location
                   </label>
                   <input
@@ -331,7 +327,7 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                     value={preferredLocation}
                     onChange={(e) => setPreferredLocation(e.target.value)}
                     placeholder="e.g. Brampton, Mississauga, GTA"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#159B78]"
+                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#F5EBD0] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] text-[#590907]"
                   />
                 </div>
               </div>
@@ -339,26 +335,26 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
               {/* Row 4: Preferred Role & Experience */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#590907] mb-1.5">
                     Preferred Role / Specialty
                   </label>
                   <input
                     type="text"
                     value={preferredJob}
                     onChange={(e) => setPreferredJob(e.target.value)}
-                    placeholder="Forklift, General Labour, Machine Operator"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#159B78]"
+                    placeholder="Administrative, Warehouse, Machine Operator"
+                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#F5EBD0] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] text-[#590907]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#590907] mb-1.5">
                     Relevant Work Experience
                   </label>
                   <select
                     value={workExperience}
                     onChange={(e) => setWorkExperience(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#159B78]"
+                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#F5EBD0] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] text-[#590907]"
                   >
                     <option value="Entry Level (0 - 6 months)">Entry Level (0 - 6 months)</option>
                     <option value="1 - 2 years">1 - 2 years</option>
@@ -370,10 +366,10 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
 
               {/* Resume Upload Box */}
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-[#590907] mb-1.5">
                   Upload Resume / CV (PDF, DOC, DOCX)
                 </label>
-                <div className="border-2 border-dashed border-slate-300 hover:border-[#159B78] rounded-xl p-4 text-center transition-colors bg-slate-50/50">
+                <div className="border-2 border-dashed border-[#A5A79B] hover:border-[#7F011F] rounded-2xl p-5 text-center transition-colors bg-white">
                   <input
                     type="file"
                     id="resume-upload"
@@ -383,20 +379,20 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                   />
                   <label htmlFor="resume-upload" className="cursor-pointer block">
                     {resumeFile ? (
-                      <div className="flex items-center justify-center gap-2 text-[#159B78]">
-                        <FileText className="w-5 h-5" />
-                        <span className="text-xs font-semibold">{resumeFile.name}</span>
-                        <span className="text-[11px] text-slate-500">
+                      <div className="flex items-center justify-center gap-2 text-[#590907]">
+                        <FileText className="w-5 h-5 text-[#7F011F]" />
+                        <span className="text-xs font-bold">{resumeFile.name}</span>
+                        <span className="text-[11px] text-[#590907]/70">
                           ({(resumeFile.size / 1024).toFixed(0)} KB)
                         </span>
                       </div>
                     ) : (
-                      <div className="space-y-1">
-                        <Upload className="w-6 h-6 text-slate-400 mx-auto" />
-                        <div className="text-xs text-slate-600 font-medium">
-                          <span className="text-[#159B78] font-bold">Click to upload</span> or drag and drop
+                      <div className="space-y-1.5">
+                        <Upload className="w-6 h-6 text-[#7F011F] mx-auto" />
+                        <div className="text-xs text-[#590907] font-medium">
+                          <span className="text-[#7F011F] font-bold">Click to upload</span> or drag and drop
                         </div>
-                        <div className="text-[11px] text-slate-400">
+                        <div className="text-[11px] text-[#A5A79B]">
                           Supported formats: PDF, DOC, DOCX (Max 10MB)
                         </div>
                       </div>
@@ -407,32 +403,32 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
 
               {/* Additional Information */}
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-[#590907] mb-1.5">
                   Certifications & Additional Notes (Optional)
                 </label>
                 <textarea
                   rows={2}
                   value={additionalInfo}
                   onChange={(e) => setAdditionalInfo(e.target.value)}
-                  placeholder="e.g. Counterbalance certified, valid G license, available for night shifts..."
-                  className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#159B78]"
+                  placeholder="e.g. Valid G license, Forklift certification, bilingual, available for shifts..."
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#F5EBD0] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] text-[#590907]"
                 />
               </div>
 
               {/* Compliance & Privacy statement */}
-              <div className="flex items-start gap-2 pt-1 text-[11px] text-slate-500">
-                <ShieldCheck className="w-4 h-4 text-[#159B78] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2 pt-1 text-[11px] text-[#590907]/75">
+                <ShieldCheck className="w-4 h-4 text-[#7F011F] shrink-0 mt-0.5" />
                 <span>
                   Maple Staffing Solutions protects candidate privacy. Your details are securely transmitted to our internal staffing dispatch and never shared with unauthorized third parties.
                 </span>
               </div>
 
               {/* Form Action Buttons */}
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-[#F5EBD0] flex items-center justify-end gap-3">
                 <button
                   type="button"
-                  onClick={onClose}
-                  className="px-4 py-2.5 text-xs text-slate-600 hover:text-slate-900 font-medium rounded-lg"
+                  onClick={resetFormAndClose}
+                  className="px-4 py-2.5 text-xs text-[#590907] hover:text-[#7F011F] font-bold rounded-xl cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -440,11 +436,11 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2.5 bg-[#159B78] hover:bg-[#128264] text-white text-xs sm:text-sm font-semibold rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50"
+                  className="px-6 py-2.5 bg-[#7F011F] hover:bg-[#590907] text-white text-xs sm:text-sm font-semibold rounded-xl transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer shadow-md"
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 className="w-4 h-4 animate-spin text-[#F5EBD0]" />
                       <span>Transmitting Application...</span>
                     </>
                   ) : (
