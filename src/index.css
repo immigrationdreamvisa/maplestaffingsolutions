@@ -29,6 +29,22 @@ input:disabled {
   cursor: not-allowed !important;
 }
 
+/* Modal active scroll locking & prevent background movement */
+body.modal-open {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+.modal-backdrop {
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+
+.modal-dialog {
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
 /* Custom smooth animations & scrollbar utilities */
 ::-webkit-scrollbar {
   width: 8px;

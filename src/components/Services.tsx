@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Globe, Users, Briefcase, GraduationCap, ArrowRight, CheckCircle2, X } from 'lucide-react';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 interface ServicesProps {
   onContactServices: (serviceTitle: string) => void;
@@ -77,6 +78,17 @@ export const Services: React.FC<ServicesProps> = ({ onContactServices, onExplore
   ];
 
   const currentService = activeServiceModal !== null ? services.find(s => s.id === activeServiceModal) : null;
+
+  useBodyScrollLock(!!currentService);
+
+  useEffect(() => {
+    if (!currentService) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveServiceModal(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentService]);
 
   return (
     <section id="services" className="py-20 sm:py-28 bg-white border-t border-slate-200/80">
@@ -188,8 +200,13 @@ export const Services: React.FC<ServicesProps> = ({ onContactServices, onExplore
 
       {/* Service Detail Modal */}
       {currentService && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setActiveServiceModal(null);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200 modal-backdrop"
+        >
+          <div className="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-dialog">
             <button
               onClick={() => setActiveServiceModal(null)}
               className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"

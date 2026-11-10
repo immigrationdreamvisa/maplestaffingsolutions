@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle2, ArrowRight, X, Building, Users, Globe, Award } from 'lucide-react';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 interface AboutUsProps {
   onExploreCareers: () => void;
@@ -7,6 +8,17 @@ interface AboutUsProps {
 
 export const AboutUs: React.FC<AboutUsProps> = ({ onExploreCareers }) => {
   const [storyModalOpen, setStoryModalOpen] = useState(false);
+
+  useBodyScrollLock(storyModalOpen);
+
+  useEffect(() => {
+    if (!storyModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setStoryModalOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [storyModalOpen]);
 
   const pillars = [
     {
@@ -126,8 +138,13 @@ export const AboutUs: React.FC<AboutUsProps> = ({ onExploreCareers }) => {
 
       {/* Discover Our Story Modal */}
       {storyModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setStoryModalOpen(false);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200 modal-backdrop"
+        >
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto modal-dialog">
             <button
               onClick={() => setStoryModalOpen(false)}
               className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"

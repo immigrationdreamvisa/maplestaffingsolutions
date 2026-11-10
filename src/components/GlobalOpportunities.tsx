@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Globe, Shield, Check, X, MapPin } from 'lucide-react';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 interface GlobalOpportunitiesProps {
   onContactGlobal: (destination: string) => void;
@@ -61,6 +62,17 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
   ];
 
   const activeDest = destinations.find(d => d.country === selectedDestination);
+
+  useBodyScrollLock(!!activeDest);
+
+  useEffect(() => {
+    if (!activeDest) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedDestination(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeDest]);
 
   return (
     <section className="py-20 sm:py-28 bg-[#10243A] text-white relative overflow-hidden">
@@ -160,8 +172,13 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
 
       {/* Destination Overview Modal */}
       {activeDest && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="bg-[#10243A] border border-white/20 text-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSelectedDestination(null);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200 modal-backdrop"
+        >
+          <div className="bg-[#10243A] border border-white/20 text-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative modal-dialog">
             <button
               onClick={() => setSelectedDestination(null)}
               className="absolute top-5 right-5 p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"

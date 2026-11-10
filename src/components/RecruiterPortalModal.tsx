@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Plus, Edit2, Trash2, CheckCircle2, AlertCircle, FileText, Download, Briefcase, Users, Mail, Loader2 } from 'lucide-react';
 import { JobListing, ApplicationSubmission, ContactSubmission } from '../types';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 interface RecruiterPortalModalProps {
   isOpen: boolean;
@@ -15,6 +16,17 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
   jobs,
   onRefreshJobs
 }) => {
+  useBodyScrollLock(isOpen);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   const [activeTab, setActiveTab] = useState<'jobs' | 'applications' | 'messages'>('jobs');
   
   // Job editing / creating state
@@ -212,8 +224,13 @@ export const RecruiterPortalModal: React.FC<RecruiterPortalModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-5xl w-full p-5 sm:p-8 shadow-2xl relative my-6 max-h-[92vh] flex flex-col">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-xs overflow-y-auto modal-backdrop"
+    >
+      <div className="bg-white rounded-2xl max-w-5xl w-full p-5 sm:p-8 shadow-2xl relative my-6 max-h-[92vh] flex flex-col modal-dialog">
         
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-200">

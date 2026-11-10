@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Upload, CheckCircle2, AlertCircle, FileText, Loader2, ShieldCheck, MapPin } from 'lucide-react';
 import { JobListing } from '../types';
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 interface ApplicationModalProps {
   job: JobListing | null;
@@ -15,6 +16,17 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
   onClose,
   onApplicationSuccess
 }) => {
+  useBodyScrollLock(isOpen);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -141,8 +153,13 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs overflow-y-auto modal-backdrop"
+    >
+      <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto modal-dialog">
         
         {/* Close Button */}
         <button

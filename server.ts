@@ -947,6 +947,10 @@ async function startServer() {
     });
   });
 
+  // Static assets routing
+  app.use('/src/assets', express.static(path.resolve(__dirname, 'src/assets')));
+  app.use('/images', express.static(path.resolve(__dirname, 'src/assets/images')));
+
   const isProd = process.env.NODE_ENV === 'production';
   if (!isProd) {
     const { createServer: createViteServer } = await import('vite');
