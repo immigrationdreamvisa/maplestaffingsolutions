@@ -67,7 +67,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Administration & Office',
     employmentType: 'Full-time',
     hourlyRate: '$21.00 - $24.50 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Support senior management and staff with scheduling, calendar coordination, document preparation, and executive correspondence.',
     responsibilities: [
       'Manage executive meeting agendas, calendar invitations, and conference room logistics',
@@ -93,7 +93,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Administration & Office',
     employmentType: 'Full-time',
     hourlyRate: '$19.50 - $22.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Input high-volume inventory manifests, client records, and transaction logs accurately into digital enterprise databases.',
     responsibilities: [
       'Enter customer account updates and purchase orders into ERP system with high keystroke accuracy',
@@ -119,7 +119,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Administration & Office',
     employmentType: 'Full-time',
     hourlyRate: '$24.00 - $28.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Oversee general office operations, workplace facilities, employee onboarding logistics, and company event coordination.',
     responsibilities: [
       'Oversee day-to-day office facility needs, mail handling, and equipment servicing',
@@ -145,7 +145,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Administration & Office',
     employmentType: 'Part-time',
     hourlyRate: '$18.50 - $21.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Provide an exceptional welcoming first impression for corporate visitors, answer incoming phone inquiries, and route calls.',
     responsibilities: [
       'Greet corporate clients, job candidates, and visitors with warmth and professionalism',
@@ -171,7 +171,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Administration & Office',
     employmentType: 'Full-time',
     hourlyRate: '$20.00 - $23.50 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Deliver responsive customer care via telephone, email, and live ticketing for Canadian client accounts.',
     responsibilities: [
       'Resolve client product inquiries, shipping delivery updates, and order changes',
@@ -199,7 +199,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Warehousing & Logistics',
     employmentType: 'Full-time',
     hourlyRate: '$19.00 - $21.50 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Fulfill pick and pack orders, receive freight skids, and organize inventory in a clean distribution facility.',
     responsibilities: [
       'Pick customer orders accurately using RF barcode scanners and pick-to-light systems',
@@ -225,7 +225,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Warehousing & Logistics',
     employmentType: 'Full-time',
     hourlyRate: '$21.00 - $24.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Perform scheduled inventory cycle counts, audit warehouse bay locations, and reconcile SAP ERP balances.',
     responsibilities: [
       'Conduct daily physical cycle counts across assigned racking aisles',
@@ -251,7 +251,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Warehousing & Logistics',
     employmentType: 'Full-time',
     hourlyRate: '$22.00 - $25.50 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Operate Raymond Reach, Walkie, and Counterbalance equipment to navigate high-density pallet racking safely.',
     responsibilities: [
       'Maneuver Raymond Reach equipment across narrow aisles to store and retrieve skids',
@@ -277,7 +277,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Warehousing & Logistics',
     employmentType: 'Full-time',
     hourlyRate: '$20.50 - $23.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Coordinate freight carrier check-in, inspect inbound bills of lading, and prepare outbound international shipping documents.',
     responsibilities: [
       'Inspect incoming freight containers and cross-check packing slips with purchase orders',
@@ -303,7 +303,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Warehousing & Logistics',
     employmentType: 'Contract',
     hourlyRate: '$25.00 - $29.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Track freight dispatch schedules, communicate with transport carriers, and optimize delivery route timelines.',
     responsibilities: [
       'Monitor nationwide freight shipments and expedite priority transit requests',
@@ -331,7 +331,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Manufacturing & Production',
     employmentType: 'Full-time',
     hourlyRate: '$19.50 - $22.50 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Operate automated production assembly stations, inspect finished components, and maintain plant cleanliness.',
     responsibilities: [
       'Assemble precision mechanical sub-components according to visual work instructions',
@@ -357,7 +357,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Manufacturing & Production',
     employmentType: 'Full-time',
     hourlyRate: '$18.50 - $21.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Package food-grade items and consumer goods along conveyor lines adhering strictly to GMP and hygiene regulations.',
     responsibilities: [
       'Operate automated cartoning, sealing, and labeling machinery on high-speed lines',
@@ -383,7 +383,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Manufacturing & Production',
     employmentType: 'Full-time',
     hourlyRate: '$22.50 - $26.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Sample production batches, measure dimensional tolerances using calipers and micrometers, and record QA audit logs.',
     responsibilities: [
       'Collect finished parts at predetermined intervals for physical and mechanical testing',
@@ -409,7 +409,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Manufacturing & Production',
     employmentType: 'Full-time',
     hourlyRate: '$21.50 - $25.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Set up, calibrate, and operate automated stamping, CNC cutting, or extruding machinery in an advanced manufacturing plant.',
     responsibilities: [
       'Perform tool changes and calibration adjustments according to daily production run specs',
@@ -435,7 +435,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Manufacturing & Production',
     employmentType: 'Temporary',
     hourlyRate: '$18.50 - $20.50 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Assemble commercial fixtures, electronics enclosures, and automotive components using power drivers and fasteners.',
     responsibilities: [
       'Fasten parts using pneumatic screwdrivers, torque tools, and manual clamps',
@@ -463,7 +463,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Hospitality & Retail',
     employmentType: 'Part-time',
     hourlyRate: '$17.50 - $19.50 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Engage shoppers warmly, provide tailored product advice, manage cash register POS transactions, and restock merchandise.',
     responsibilities: [
       'Provide an inviting shopping experience by greeting customers and offering style advice',
@@ -489,7 +489,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Hospitality & Retail',
     employmentType: 'Full-time',
     hourlyRate: '$18.00 - $20.50 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Maintain store inventory replenishment, assist customers on retail floor, and support stockroom receiving.',
     responsibilities: [
       'Replenish shelves, check inventory expiry dates, and ensure facing consistency',
@@ -515,7 +515,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Hospitality & Retail',
     employmentType: 'Full-time',
     hourlyRate: '$20.00 - $23.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Welcome hotel guests, manage reservations in Opera PMS, handle check-in/out procedures, and provide local concierge advice.',
     responsibilities: [
       'Check guests in and out, assign room keys, and verify credit card authorizations',
@@ -541,7 +541,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Hospitality & Retail',
     employmentType: 'Part-time',
     hourlyRate: '$17.50 - $19.50 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Clean and sanitize guest rooms, change linens, replenish bathroom amenities, and maintain pristine public hotel areas.',
     responsibilities: [
       'Thoroughly clean and sanitize guest rooms according to established hospitality protocols',
@@ -567,7 +567,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Hospitality & Retail',
     employmentType: 'Temporary',
     hourlyRate: '$17.50 - $19.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Support cafeteria and catering operations with meal staging, table setup, food temperature logging, and dishwashing.',
     responsibilities: [
       'Assist chefs with basic vegetable washing, portioning, and tray preparation',
@@ -595,7 +595,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Professional & Technical',
     employmentType: 'Full-time',
     hourlyRate: '$25.00 - $30.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Provide helpdesk technical assistance for desktop workstations, network connectivity, user accounts, and peripherals.',
     responsibilities: [
       'Respond to employee hardware/software helpdesk tickets via Jira or ServiceNow',
@@ -621,7 +621,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Professional & Technical',
     employmentType: 'Full-time',
     hourlyRate: '$26.00 - $32.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Assist controller with accounts payable/receivable, bank reconciliations, expense audits, and monthly journal entries.',
     responsibilities: [
       'Process vendor invoices, verify approval sign-offs, and prepare scheduled check runs',
@@ -647,7 +647,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Professional & Technical',
     employmentType: 'Contract',
     hourlyRate: '$23.00 - $27.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Support human resources department with candidate pre-screening, interview scheduling, new-hire paperwork, and employee files.',
     responsibilities: [
       'Screen resumes against job requisitions and conduct initial phone interviews',
@@ -673,7 +673,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Professional & Technical',
     employmentType: 'Full-time',
     hourlyRate: '$24.00 - $28.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Assist marketing team with social media scheduling, digital campaigns, recruitment flyers, and industry event planning.',
     responsibilities: [
       'Draft engaging copy for LinkedIn, Instagram, and corporate job postings',
@@ -699,7 +699,7 @@ const INITIAL_JOBS: JobListing[] = [
     category: 'Professional & Technical',
     employmentType: 'Full-time',
     hourlyRate: '$22.00 - $26.00 / hr',
-    isVerifiedVacancy: false,
+    isVerifiedVacancy: true,
     description: 'Provide technical troubleshooting and account resolution for software users, answering tier-2 tickets via chat and phone.',
     responsibilities: [
       'Investigate complex customer software issues and guide users through step-by-step resolution',

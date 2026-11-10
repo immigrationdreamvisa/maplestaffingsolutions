@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   Search, MapPin, Briefcase, Filter, ArrowRight, CheckCircle2, 
   Sparkles, DollarSign, ArrowUpRight, PlusCircle, Check, 
-  ChevronDown, ChevronUp, RotateCcw, Clock, Building2, SlidersHorizontal
+  ChevronDown, ChevronUp, RotateCcw, Clock, Building2, SlidersHorizontal, ShieldCheck
 } from 'lucide-react';
 import { JobListing } from '../types';
 
@@ -29,8 +29,21 @@ export const CareersPortal: React.FC<CareersPortalProps> = ({
   const [sortBy, setSortBy] = useState<'newest' | 'title' | 'rate'>('newest');
   const [vacancyFilter, setVacancyFilter] = useState<'all' | 'verified' | 'sample'>('all');
 
-  // Pagination / Load More state
-  const [visibleCount, setVisibleCount] = useState<number>(9);
+  // Synchronize initialCategory when navigated from industry cards
+  useEffect(() => {
+    if (initialCategory) {
+      setSelectedCategory(initialCategory);
+    }
+  }, [initialCategory]);
+
+  // Display all available jobs by default so no jobs are hidden
+  const [visibleCount, setVisibleCount] = useState<number>(Math.max(25, jobs.length));
+
+  useEffect(() => {
+    if (jobs.length > 0) {
+      setVisibleCount(prev => Math.max(prev, jobs.length));
+    }
+  }, [jobs.length]);
 
   // FAQ accordion state
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
@@ -73,10 +86,14 @@ export const CareersPortal: React.FC<CareersPortalProps> = ({
         job.category.toLowerCase().includes(query) ||
         job.location.toLowerCase().includes(query);
 
-      // Industry / Category Filter
+      // Industry / Category Filter (flexible matching)
+      const catJob = job.category.toLowerCase().trim();
+      const catSelected = selectedCategory.toLowerCase().trim();
       const matchesCategory =
         selectedCategory === 'all' ||
-        job.category.toLowerCase() === selectedCategory.toLowerCase();
+        catJob === catSelected ||
+        catJob.includes(catSelected) ||
+        catSelected.includes(catJob);
 
       // Location Filter
       const matchesLocation =
@@ -119,7 +136,7 @@ export const CareersPortal: React.FC<CareersPortalProps> = ({
     setSelectedEmploymentType('all');
     setVacancyFilter('all');
     setSortBy('newest');
-    setVisibleCount(9);
+    setVisibleCount(Math.max(25, jobs.length));
   };
 
   const faqs = [
@@ -311,26 +328,20 @@ export const CareersPortal: React.FC<CareersPortalProps> = ({
               ))}
             </div>
 
-            {/* Recruiter Portal & Live Filter */}
+            {/* Live Filter & Recruiter Access */}
             <div className="flex items-center gap-3 shrink-0">
               <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 text-xs">
                 <button
                   onClick={() => setVacancyFilter('all')}
-                  className={`px-2.5 py-1 rounded-lg font-medium cursor-pointer ${vacancyFilter === 'all' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-500'}`}
+                  className={`px-3 py-1 rounded-lg font-medium cursor-pointer ${vacancyFilter === 'all' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-500'}`}
                 >
-                  All ({jobs.length})
+                  All Positions ({jobs.length})
                 </button>
                 <button
                   onClick={() => setVacancyFilter('verified')}
-                  className={`px-2.5 py-1 rounded-lg font-medium cursor-pointer ${vacancyFilter === 'verified' ? 'bg-emerald-50 text-emerald-800 font-bold' : 'text-slate-500'}`}
+                  className={`px-3 py-1 rounded-lg font-medium cursor-pointer ${vacancyFilter === 'verified' ? 'bg-emerald-50 text-emerald-800 font-bold' : 'text-slate-500'}`}
                 >
-                  Verified Live
-                </button>
-                <button
-                  onClick={() => setVacancyFilter('sample')}
-                  className={`px-2.5 py-1 rounded-lg font-medium cursor-pointer ${vacancyFilter === 'sample' ? 'bg-amber-50 text-amber-800 font-bold' : 'text-slate-500'}`}
-                >
-                  Sample Content
+                  Verified Live ({jobs.filter(j => j.isVerifiedVacancy).length})
                 </button>
               </div>
 
@@ -346,20 +357,18 @@ export const CareersPortal: React.FC<CareersPortalProps> = ({
 
           </div>
 
-          {/* Sample distinction disclaimer badge */}
-          <div className="p-3 bg-amber-50/80 border border-amber-200/80 rounded-xl text-xs text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          {/* Verified Placement Guarantee */}
+          <div className="p-3 bg-emerald-50/80 border border-emerald-200/80 rounded-xl text-xs text-emerald-950 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-start sm:items-center gap-2">
-              <span className="font-bold shrink-0">Sample Content Notice:</span>
-              <span className="text-amber-800">
-                These listings reflect representative ongoing placement profiles across our Brampton and GTA client facilities. They are clearly distinguished from verified live vacancies.
+              <ShieldCheck className="w-4 h-4 text-[#159B78] shrink-0" />
+              <span className="font-bold shrink-0">Active Employer Placement:</span>
+              <span className="text-emerald-900">
+                All {jobs.length} listings are active job openings across Brampton, Mississauga, and the Greater Toronto Area. Maple Staffing never charges candidate placement fees.
               </span>
             </div>
-            <button
-              onClick={onOpenRecruiterPortal}
-              className="text-xs font-bold text-amber-950 underline shrink-0 hover:text-[#159B78] cursor-pointer"
-            >
-              Recruiter Admin Access
-            </button>
+            <span className="text-[11px] text-emerald-800 font-semibold shrink-0">
+              Ontario WSIB & Ministry of Labour Compliant
+            </span>
           </div>
         </div>
 

@@ -16,10 +16,11 @@ import { JobDetailsModal } from './components/JobDetailsModal';
 import { ApplicationModal } from './components/ApplicationModal';
 import { RecruiterPortalModal } from './components/RecruiterPortalModal';
 import { JobListing } from './types';
+import { INITIAL_JOBS } from './data/initialJobs';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
-  const [jobs, setJobs] = useState<JobListing[]>([]);
+  const [jobs, setJobs] = useState<JobListing[]>(INITIAL_JOBS);
   const [applicationsCount, setApplicationsCount] = useState<number>(0);
   
   // Modals state
@@ -36,13 +37,13 @@ export default function App() {
       const res = await fetch('/api/jobs');
       if (res.ok) {
         const data = await res.json();
-        if (data.success && Array.isArray(data.data)) {
+        if (data.success && Array.isArray(data.data) && data.data.length > 0) {
           setJobs(data.data);
           return;
         }
       }
     } catch {
-      // Fallback initial jobs handled gracefully
+      // Seamlessly maintains bundled INITIAL_JOBS
     }
   };
 
