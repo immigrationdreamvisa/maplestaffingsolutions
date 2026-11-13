@@ -1,64 +1,81 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Globe, Shield, Check, X, MapPin, Sparkles } from 'lucide-react';
+import { ArrowRight, Globe, Shield, Check, X, MapPin, Sparkles, Briefcase, Plane } from 'lucide-react';
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 interface GlobalOpportunitiesProps {
   onContactGlobal: (destination: string) => void;
   onExploreCareers: () => void;
+  onSelectCountry?: (countryCode: string) => void;
 }
 
 export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
   onContactGlobal,
-  onExploreCareers
+  onExploreCareers,
+  onSelectCountry
 }) => {
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
 
   const destinations = [
     {
       country: 'Canada',
+      countryCode: 'CA',
       flag: '🇨🇦',
-      region: 'Ontario (GTA Corridor)',
+      region: 'Ontario, BC, Alberta & National',
       status: 'Primary Hub & Headquarters',
-      highlight: 'Direct access to high-bay warehousing, corporate administration, manufacturing, and retail.',
-      details: 'Based in Brampton, Maple Staffing Solutions provides domestic recruitment across the Greater Toronto Area (Mississauga, Brampton, Toronto, Vaughan). We connect authorized workers with licensed, safety-compliant Canadian employers offering competitive employment conditions.',
-      sectors: ['Administration & Office', 'Warehousing & Distribution', 'Manufacturing & Assembly', 'Hospitality & Retail']
+      highlight: 'Direct access to corporate administration, warehousing & logistics, manufacturing, and healthcare.',
+      details: 'Headquartered in Brampton, ON, Maple Staffing Solutions provides domestic and overseas recruitment across the Greater Toronto Area (Mississauga, Brampton, Toronto, Vaughan, Calgary, Vancouver). We connect authorized workers and newcomers with licensed Canadian employers.',
+      sectors: ['Administration & Office', 'Warehousing & Distribution', 'Manufacturing & Assembly', 'Finance & Technical']
     },
     {
       country: 'Australia',
+      countryCode: 'AU',
       flag: '🇦🇺',
-      region: 'New South Wales & Victoria',
-      status: 'Talent Exchange Network',
-      highlight: 'Connecting qualified heavy equipment operators, logistics specialists, and trades personnel.',
-      details: 'Partnering with vetted international agencies to match certified trade and industrial candidates with Australian employers facing critical technical labour shortages.',
-      sectors: ['Heavy Equipment Operators', 'Mining & Resources Logistics', 'Civil Infrastructure']
+      region: 'Perth, Sydney, Melbourne & Queensland',
+      status: 'Skilled Trades & Resource Hub',
+      highlight: 'Connecting heavy equipment operators, logistics supervisors, and certified trade specialists.',
+      details: 'Partnering with vetted Australian employers to match certified trade, mining, and civil engineering candidates with Australian sponsors facing critical technical skills shortages, offering Subclass 482 visa support.',
+      sectors: ['Heavy Equipment Operators', 'Mining & Resources Logistics', 'Civil Infrastructure', 'Hospitality Lead']
     },
     {
-      country: 'New Zealand',
-      flag: '🇳🇿',
-      region: 'Auckland & Canterbury',
-      status: 'Strategic Market',
-      highlight: 'Opportunities in food processing technology, transport operations, and regional infrastructure.',
-      details: 'Facilitating recruitment pathways for skilled technicians seeking career advancement in New Zealand’s modern industrial and agricultural processing hubs.',
-      sectors: ['Processing Technology', 'Freight & Transport', 'Specialized Trade Assembly']
+      country: 'United States',
+      countryCode: 'US',
+      flag: '🇺🇸',
+      region: 'Texas, California, Illinois & Remote',
+      status: 'Supply Chain & Tech Exchange',
+      highlight: 'High-growth opportunities in supply chain analytics, cloud engineering, and operations leadership.',
+      details: 'Connecting specialized talent with US enterprise logistics networks, technology hubs, and corporate headquarters offering hybrid and remote placement frameworks.',
+      sectors: ['Supply Chain & Logistics Analytics', 'Cloud & DevOps Engineering', 'Technical Operations']
     },
     {
-      country: 'Europe',
-      flag: '🇪🇺',
-      region: 'Central & Western Europe',
-      status: 'Engineering & Industrial Network',
-      highlight: 'Specialized talent pipelines in precision engineering, manufacturing automation, and supply chain.',
-      details: 'Collaborating with continental recruitment partners to evaluate bilingual candidates and specialized automation personnel for global employer partners.',
-      sectors: ['Robotics & Automation', 'Industrial Maintenance', 'Chemical & Materials Handling']
+      country: 'United Kingdom',
+      countryCode: 'GB',
+      flag: '🇬🇧',
+      region: 'London, Manchester & Midlands',
+      status: 'Multimodal Freight & Corporate',
+      highlight: 'Specialized pipelines in air freight forwarding, customs brokerage, and corporate administration.',
+      details: 'Facilitating placements for international freight forwarders, HR advisors, and supply chain analysts across major UK logistics gateways including Heathrow and Manchester.',
+      sectors: ['International Freight Forwarding', 'HMRC Customs Brokerage', 'Bilingual Human Resources']
     },
     {
-      country: 'Other International Markets',
-      flag: '🌐',
-      region: 'Asia & Middle East Pipelines',
-      status: 'Pre-Screening Hubs',
-      highlight: 'Rigorous vetting, credential verification, and trade competence checks in candidate source countries.',
-      details: 'Maple Staffing Solutions maintains trusted partnerships with accredited overseas training centers to assess candidates before they embark on international career paths.',
-      sectors: ['Verified Trade Candidates', 'Pre-departure Orientation', 'English Proficiency Screening']
+      country: 'Germany & Europe',
+      countryCode: 'DE',
+      flag: '🇩🇪',
+      region: 'Munich, Frankfurt & Stuttgart',
+      status: 'Engineering & Automation',
+      highlight: 'Specialized talent pipelines in industrial robotics, mechatronics, and precision manufacturing.',
+      details: 'Collaborating with continental European manufacturing leaders to evaluate automation technicians, quality assurance inspectors, and technical specialists with EU Blue Card pathways.',
+      sectors: ['Robotics & Automation PLC', 'Precision Quality Control', 'Industrial Mechatronics']
+    },
+    {
+      country: 'United Arab Emirates',
+      countryCode: 'AE',
+      flag: '🇦🇪',
+      region: 'Dubai & Abu Dhabi',
+      status: 'Tax-Free Cargo & Hospitality',
+      highlight: 'Global aviation cargo operations, airport logistics, and luxury 5-star hospitality management.',
+      details: 'Direct recruitment pipelines for international airport ground handling, air cargo operations, and front office managers at premier luxury resorts in Dubai and Abu Dhabi.',
+      sectors: ['Aviation Ground Handling', 'Airside Cargo Operations', 'Luxury Resort Front Office']
     }
   ];
 
@@ -74,6 +91,14 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeDest]);
+
+  const handleExploreJobsForCountry = (countryCode: string) => {
+    if (onSelectCountry) {
+      onSelectCountry(countryCode);
+    } else {
+      onExploreCareers();
+    }
+  };
 
   return (
     <section id="global" className="py-20 sm:py-28 bg-[#590907] text-white relative overflow-hidden border-t border-[#7F011F] scroll-mt-24">
@@ -93,19 +118,19 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 text-xs font-bold text-[#F5EBD0] uppercase tracking-widest border border-white/10">
             <Globe className="w-3.5 h-3.5 text-[#A5A79B]" />
-            <span>International Employment Network</span>
+            <span>Global Employment Network</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#F3F3E7] leading-[1.15] font-heading">
             Global Opportunities.{' '}
             <span className="text-[#F5EBD0]">Transparent Pathways.</span>
           </h2>
-          <p className="text-[#F5EBD0]/90 text-base sm:text-lg leading-relaxed font-body">
-            Connecting motivated international talent with qualified employers worldwide. We emphasize rigorous skill verification, authentic employment standards, and ethical recruitment practices.
+          <p className="text-base sm:text-lg text-[#F5EBD0]/80 font-body">
+            While proudly rooted in Canada, Maple Staffing Solutions facilitates cross-border candidate pathways and international recruitment across key commonwealth and global markets.
           </p>
         </motion.div>
 
-        {/* Responsible Notice Banner */}
-        <motion.div 
+        {/* Ethical Recruitment Notice */}
+        <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -114,8 +139,8 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
         >
           <Shield className="w-5 h-5 text-[#A5A79B] shrink-0 mt-0.5" />
           <div>
-            <span className="font-bold text-white font-heading">Ethical Recruitment Notice: </span>
-            Maple Staffing Solutions does not charge candidate placement fees for Canadian employment, nor do we issue immigration guarantees. Employment decisions and visas are strictly determined by authorized employers and national immigration authorities.
+            <span className="font-bold text-white font-heading">Ethical International Recruitment Notice: </span>
+            Maple Staffing Solutions never charges placement or interview fees to job candidates. We partner directly with verified employers and authorized international recruitment bodies to build safe, legal career mobility pathways.
           </div>
         </motion.div>
 
@@ -129,7 +154,7 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: idx * 0.08 }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#A5A79B]/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between"
+              className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#A5A79B]/60 rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -163,13 +188,21 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-2">
                 <button
                   onClick={() => setSelectedDestination(dest.country)}
-                  className="text-xs font-bold text-[#F5EBD0] group-hover:text-white flex items-center gap-1.5 transition-colors focus:outline-none cursor-pointer"
+                  className="text-xs font-bold text-[#F5EBD0] hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
-                  <span>Explore Market</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                  <span>Overview</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+
+                <button
+                  onClick={() => handleExploreJobsForCountry(dest.countryCode)}
+                  className="px-3.5 py-1.5 bg-[#7F011F] hover:bg-[#F5EBD0] hover:text-[#590907] text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Briefcase className="w-3.5 h-3.5" />
+                  <span>View Jobs</span>
                 </button>
               </div>
             </motion.div>
@@ -184,71 +217,82 @@ export const GlobalOpportunities: React.FC<GlobalOpportunitiesProps> = ({
             onClick={onExploreCareers}
             className="px-8 py-3.5 text-sm font-semibold bg-[#F5EBD0] text-[#590907] rounded-xl transition-all duration-200 shadow-lg inline-flex items-center gap-2 cursor-pointer"
           >
-            <span>Explore International Opportunities</span>
-            <ArrowRight className="w-4 h-4 text-[#7F011F]" />
+            <Globe className="w-4 h-4 text-[#7F011F]" />
+            <span>Search All International Job Opportunities</span>
+            <ArrowRight className="w-4 h-4" />
           </motion.button>
         </div>
 
       </div>
 
-      {/* Destination Overview Modal */}
+      {/* Destination Modal */}
       {activeDest && (
         <div
           onClick={(e) => {
             if (e.target === e.currentTarget) setSelectedDestination(null);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200 modal-backdrop"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto modal-backdrop animate-in fade-in duration-200"
         >
-          <div className="bg-[#590907] border border-[#7F011F] text-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative modal-dialog">
+          <div className="bg-[#F3F3E7] text-[#590907] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative my-8 border border-[#F5EBD0] modal-dialog">
+            
             <button
               onClick={() => setSelectedDestination(null)}
-              className="absolute top-5 right-5 p-2 text-[#F5EBD0] hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
+              className="absolute top-5 right-5 p-2 text-[#590907] hover:text-[#7F011F] hover:bg-[#F5EBD0] rounded-xl transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-3.5 mb-5">
+            <div className="flex items-center gap-3 mb-4">
               <span className="text-4xl">{activeDest.flag}</span>
               <div>
-                <h3 className="text-2xl font-bold text-white font-heading">{activeDest.country}</h3>
-                <span className="text-xs text-[#A5A79B] font-semibold tracking-wide uppercase">{activeDest.region}</span>
+                <h3 className="text-2xl font-extrabold text-[#590907] font-heading">
+                  {activeDest.country}
+                </h3>
+                <span className="text-xs text-[#7F011F] font-bold">{activeDest.region}</span>
               </div>
             </div>
 
-            <p className="text-sm text-[#F5EBD0] leading-relaxed mb-6 font-body">
-              {activeDest.details}
-            </p>
+            <div className="space-y-4 my-6 text-xs sm:text-sm">
+              <p className="text-[#590907]/85 leading-relaxed font-body">
+                {activeDest.details}
+              </p>
 
-            <div className="mb-6 bg-white/5 p-4 rounded-xl border border-white/10">
-              <div className="text-xs font-bold text-[#A5A79B] uppercase tracking-wider mb-2.5">
-                Active Hiring Sectors:
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {activeDest.sectors.map((sec, idx) => (
-                  <span key={idx} className="text-xs bg-white/10 text-[#F5EBD0] px-3 py-1 rounded-lg border border-white/10 font-medium">
-                    {sec}
-                  </span>
-                ))}
+              <div className="bg-[#F5EBD0]/70 p-4 rounded-xl border border-[#F5EBD0]">
+                <div className="font-bold text-[#590907] mb-2 uppercase tracking-wider text-xs">
+                  Active Recruitment Pipelines:
+                </div>
+                <div className="space-y-1.5">
+                  {activeDest.sectors.map((sec, i) => (
+                    <div key={i} className="flex items-center gap-2 text-[#590907]">
+                      <Check className="w-3.5 h-3.5 text-[#7F011F]" />
+                      <span>{sec}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-              <button
-                onClick={() => {
-                  setSelectedDestination(null);
-                  onContactGlobal(activeDest.country);
-                }}
-                className="px-6 py-2.5 bg-[#F5EBD0] hover:bg-white text-[#590907] text-xs font-bold rounded-xl transition-colors cursor-pointer shadow-md"
-              >
-                Inquire for {activeDest.country}
-              </button>
+            <div className="flex items-center justify-between gap-3 pt-4 border-t border-[#F5EBD0]">
               <button
                 onClick={() => setSelectedDestination(null)}
-                className="text-xs text-[#F5EBD0] hover:text-white font-semibold cursor-pointer"
+                className="px-4 py-2 text-xs font-bold text-[#590907] hover:bg-[#F5EBD0] rounded-xl cursor-pointer"
               >
                 Close
               </button>
+
+              <button
+                onClick={() => {
+                  const cCode = activeDest.countryCode;
+                  setSelectedDestination(null);
+                  handleExploreJobsForCountry(cCode);
+                }}
+                className="px-5 py-2.5 bg-[#7F011F] hover:bg-[#590907] text-white text-xs font-bold rounded-xl shadow-md transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <span>View {activeDest.country} Jobs</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
+
           </div>
         </div>
       )}

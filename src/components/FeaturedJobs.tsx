@@ -104,14 +104,18 @@ export const FeaturedJobs: React.FC<FeaturedJobsProps> = ({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                   
-                  {/* Category Pill Tag Overlay */}
-                  <div className="absolute top-3 left-3">
+                  {/* Category & Country Pill Tag Overlay */}
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                    <span className="text-[10px] font-bold text-[#590907] bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1 border border-[#F5EBD0]">
+                      <span>{job.countryFlag || '🌍'}</span>
+                      <span>{job.country || 'Canada'}</span>
+                    </span>
                     <span className="text-[10px] font-bold text-[#590907] bg-[#F5EBD0] px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm border border-[#A5A79B]/30">
                       {job.category}
                     </span>
                   </div>
 
-                  {/* Verified Opening Badge (No salary amount displayed) */}
+                  {/* Verified Opening Badge */}
                   <div className="absolute bottom-3 right-3">
                     <span className="text-[11px] font-semibold text-white bg-[#590907]/90 backdrop-blur-xs px-2.5 py-1 rounded-lg shadow-sm border border-[#7F011F]/40 flex items-center gap-1.5">
                       <ShieldCheck className="w-3 h-3 text-[#A5A79B]" />
@@ -123,9 +127,16 @@ export const FeaturedJobs: React.FC<FeaturedJobsProps> = ({
                 {/* Content Area */}
                 <div className="p-5 sm:p-6">
                   {/* Quiet category kicker */}
-                  <div className="text-[11px] font-bold text-[#7F011F] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#A5A79B]" />
-                    <span>Verified Opportunity</span>
+                  <div className="text-[11px] font-bold text-[#7F011F] uppercase tracking-wider mb-1.5 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#A5A79B]" />
+                      <span>Verified Opportunity</span>
+                    </div>
+                    {job.visaSponsorship && (
+                      <span className="text-[10px] text-[#590907] bg-[#F5EBD0] px-2 py-0.5 rounded font-semibold">
+                        ✈️ Visa Supported
+                      </span>
+                    )}
                   </div>
 
                   {/* Job Title */}
@@ -133,16 +144,20 @@ export const FeaturedJobs: React.FC<FeaturedJobsProps> = ({
                     {job.title}
                   </h3>
 
-                  {/* Location & Employment Type */}
+                  {/* Location & Compensation */}
                   <div className="flex flex-wrap items-center gap-y-1 gap-x-2.5 text-xs text-[#590907]/70 mb-3.5">
                     <div className="flex items-center gap-1 group/loc">
                       <MapPin className="w-3.5 h-3.5 text-[#7F011F] shrink-0 transition-transform group-hover/loc:scale-110" />
                       <span>{job.location}</span>
                     </div>
-                    <span>·</span>
-                    <span className="bg-[#F5EBD0] text-[#590907] px-2 py-0.5 rounded-md text-[11px] font-semibold">
-                      {job.employmentType}
-                    </span>
+                    {(job.hourlyRate || job.salary) && (
+                      <>
+                        <span>·</span>
+                        <span className="text-[#7F011F] font-bold">
+                          {job.salary || job.hourlyRate}
+                        </span>
+                      </>
+                    )}
                   </div>
 
                   {/* Short 2-3 line description */}

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Users, Handshake, Globe, MapPin, Calendar, ShieldCheck, Sparkles, TrendingUp } from 'lucide-react';
+import { 
+  ArrowRight, ArrowUpRight, Users, Handshake, Globe, MapPin, 
+  Calendar, ShieldCheck, Sparkles, TrendingUp, Search, Briefcase, Plane
+} from 'lucide-react';
 
 interface HeroProps {
-  onExploreCareers: () => void;
+  onExploreCareers: (filters?: { country?: string; query?: string }) => void;
   onExploreSolutions: () => void;
   onExploreAbout?: () => void;
   onExploreStory?: () => void;
@@ -17,6 +20,14 @@ export const Hero: React.FC<HeroProps> = ({
   onExploreStory,
   onExploreGlobal
 }) => {
+  const [quickSearch, setQuickSearch] = useState('');
+  const [quickCountry, setQuickCountry] = useState('ALL');
+
+  const handleQuickSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    onExploreCareers({ query: quickSearch, country: quickCountry });
+  };
+
   return (
     <section className="relative pt-24 sm:pt-28 pb-14 sm:pb-20 overflow-hidden bg-[#F3F3E7] text-[#590907]">
       
@@ -38,7 +49,7 @@ export const Hero: React.FC<HeroProps> = ({
           {/* 1. DESKTOP / TABLET WIDESCREEN COMPOSITION (md and above) */}
           <div className="hidden md:block relative w-full aspect-[1024/440] min-h-[500px] md:min-h-[520px] lg:min-h-[560px] xl:min-h-[580px] select-none">
             
-            {/* Background: Paramjeet Kaur's Real Photograph (2nd Image) */}
+            {/* Background: Paramjeet Kaur's Real Photograph */}
             <div className="absolute inset-0 z-0">
               <img
                 src="/images/paramjeet_kaur_real.jpg"
@@ -55,7 +66,6 @@ export const Hero: React.FC<HeroProps> = ({
                 preserveAspectRatio="none" 
                 viewBox="0 0 500 480"
               >
-                {/* Smooth organic wave transitioning from left to center behind Paramjeet Kaur */}
                 <path d="M0,0 L360,0 C420,80 405,160 375,220 C335,290 365,390 440,480 L0,480 Z" />
               </svg>
 
@@ -74,17 +84,16 @@ export const Hero: React.FC<HeroProps> = ({
                 {/* Eyebrow */}
                 <div className="flex items-center gap-2 text-white/90 text-[10px] sm:text-[11px] lg:text-xs font-bold tracking-[0.22em] uppercase">
                   <span className="w-5 h-[1.5px] bg-white/80 inline-block" />
-                  <span>YOUR CAREER. YOUR FUTURE.</span>
+                  <span>YOUR CAREER. YOUR GLOBAL FUTURE.</span>
                 </div>
 
-                {/* Headline: "Discover Opportunities. Build Your Future." */}
+                {/* Headline */}
                 <h1 className="text-2xl sm:text-3xl md:text-[2.2rem] lg:text-[2.75rem] xl:text-[3.1rem] font-bold !text-white text-white leading-[1.12] tracking-tight font-heading">
                   <span className="block !text-white text-white">Discover</span>
                   <span className="block !text-white text-white">Opportunities.</span>
                   <span className="inline-block !text-white text-white">Build Your </span>{' '}
                   <span className="relative inline-block italic font-serif !text-white text-white font-normal">
                     Future.
-                    {/* Curved white underline flourish */}
                     <svg className="absolute -bottom-2.5 left-0 w-[112%] h-3.5 text-white" viewBox="0 0 140 14" fill="none">
                       <path d="M2 11C40 2 100 2 138 11" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
                     </svg>
@@ -93,7 +102,7 @@ export const Hero: React.FC<HeroProps> = ({
 
                 {/* Subtitle */}
                 <p className="text-[11px] sm:text-xs lg:text-[13.5px] text-white/90 max-w-sm sm:max-w-md leading-relaxed font-body pt-1">
-                  We connect talented individuals with meaningful career opportunities and help businesses find the right people to grow.
+                  We connect talented individuals with verified career opportunities across Canada, Australia, the US, UK, and Europe, helping businesses find the right people to grow.
                 </p>
 
                 {/* Action Buttons */}
@@ -101,10 +110,10 @@ export const Hero: React.FC<HeroProps> = ({
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.96 }}
-                    onClick={onExploreCareers}
+                    onClick={() => onExploreCareers()}
                     className="px-5 lg:px-6 py-2.5 bg-white text-[#590907] hover:bg-[#F5EBD0] text-xs lg:text-sm font-bold rounded-full transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
                   >
-                    <span>Explore Jobs</span>
+                    <span>Explore All Jobs</span>
                     <ArrowUpRight className="w-3.5 lg:w-4 h-3.5 lg:h-4 text-[#590907]" />
                   </motion.button>
 
@@ -119,12 +128,11 @@ export const Hero: React.FC<HeroProps> = ({
                 </div>
               </div>
 
-              {/* Bottom White Pill Bar (3 Segments + Angled Burgundy Tab) */}
+              {/* Bottom White Pill Bar */}
               <div className="relative inline-flex items-stretch self-start bg-white rounded-l-full shadow-xl border border-white/80 text-[#590907] pr-0 overflow-visible mt-4">
                 
-                {/* 1. Candidate Support */}
                 <button
-                  onClick={onExploreCareers}
+                  onClick={() => onExploreCareers()}
                   className="flex items-center gap-2 px-3.5 lg:px-4 py-2 hover:bg-[#F5EBD0]/40 transition-colors text-left cursor-pointer rounded-l-full"
                 >
                   <Users className="w-4 h-4 text-[#7F011F] shrink-0" />
@@ -133,10 +141,8 @@ export const Hero: React.FC<HeroProps> = ({
                   </span>
                 </button>
 
-                {/* Divider */}
                 <div className="w-[1px] bg-[#590907]/20 my-2 self-stretch" />
 
-                {/* 2. Employer Solutions */}
                 <button
                   onClick={onExploreSolutions}
                   className="flex items-center gap-2 px-3.5 lg:px-4 py-2 hover:bg-[#F5EBD0]/40 transition-colors text-left cursor-pointer"
@@ -147,21 +153,18 @@ export const Hero: React.FC<HeroProps> = ({
                   </span>
                 </button>
 
-                {/* Divider */}
                 <div className="w-[1px] bg-[#590907]/20 my-2 self-stretch" />
 
-                {/* 3. Global Opportunities */}
                 <button
-                  onClick={onExploreGlobal || onExploreCareers}
+                  onClick={onExploreGlobal || (() => onExploreCareers())}
                   className="flex items-center gap-2 px-3.5 lg:px-4 py-2 hover:bg-[#F5EBD0]/40 transition-colors text-left cursor-pointer"
                 >
                   <Globe className="w-4 h-4 text-[#7F011F] shrink-0" />
                   <span className="text-[10px] lg:text-[11px] font-bold leading-tight uppercase tracking-wider">
-                    Global<br /><span className="font-semibold text-[#590907]/80">Opportunities</span>
+                    Global<br /><span className="font-semibold text-[#590907]/80">Pathways</span>
                   </span>
                 </button>
 
-                {/* Angled Burgundy Decorative Tab on Right End */}
                 <div 
                   className="w-5 bg-[#590907] self-stretch"
                   style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }}
@@ -210,7 +213,6 @@ export const Hero: React.FC<HeroProps> = ({
           {/* 2. MOBILE RESPONSIVE COMPOSITION (< md screens) */}
           <div className="block md:hidden bg-[#590907] text-white">
             
-            {/* Real Photo of Paramjeet Kaur with Canadian Flag & Executive Desk */}
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#590907]">
               <img
                 src="/images/paramjeet_kaur_real.jpg"
@@ -220,7 +222,6 @@ export const Hero: React.FC<HeroProps> = ({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#590907] via-transparent to-black/30 pointer-events-none" />
               
-              {/* Floating Mobile Founder Badge */}
               <button
                 onClick={onExploreStory || onExploreAbout}
                 className="absolute bottom-3 right-3 bg-[#590907]/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-[#7F011F] text-right cursor-pointer hover:bg-[#7F011F] transition-colors"
@@ -230,9 +231,7 @@ export const Hero: React.FC<HeroProps> = ({
               </button>
             </div>
 
-            {/* Mobile Text & Buttons Area */}
             <div className="p-5 sm:p-6 space-y-4">
-              
               <div className="flex items-center gap-2 text-white/90 text-[10px] font-bold tracking-[0.2em] uppercase">
                 <span className="w-4 h-[1px] bg-white/80 inline-block" />
                 <span>YOUR CAREER. YOUR FUTURE.</span>
@@ -250,13 +249,12 @@ export const Hero: React.FC<HeroProps> = ({
               </h1>
 
               <p className="text-xs text-white/85 leading-relaxed font-body">
-                We connect talented individuals with meaningful career opportunities and help businesses find the right people to grow.
+                We connect talented individuals with verified career opportunities across Canada, Australia, US, UK, and Europe.
               </p>
 
-              {/* Action Buttons */}
               <div className="flex items-center gap-3 pt-1">
                 <button
-                  onClick={onExploreCareers}
+                  onClick={() => onExploreCareers()}
                   className="flex-1 py-2.5 bg-white text-[#590907] text-xs font-bold rounded-full transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <span>Explore Jobs</span>
@@ -271,10 +269,9 @@ export const Hero: React.FC<HeroProps> = ({
                 </button>
               </div>
 
-              {/* Mobile 3-Way Quick Navigation Bar */}
               <div className="pt-2 grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
                 <button
-                  onClick={onExploreCareers}
+                  onClick={() => onExploreCareers()}
                   className="p-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white flex flex-col items-center gap-1 cursor-pointer"
                 >
                   <Users className="w-4 h-4 text-[#F5EBD0]" />
@@ -290,7 +287,7 @@ export const Hero: React.FC<HeroProps> = ({
                 </button>
 
                 <button
-                  onClick={onExploreGlobal || onExploreCareers}
+                  onClick={onExploreGlobal || (() => onExploreCareers())}
                   className="p-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white flex flex-col items-center gap-1 cursor-pointer"
                 >
                   <Globe className="w-4 h-4 text-[#F5EBD0]" />
@@ -304,13 +301,70 @@ export const Hero: React.FC<HeroProps> = ({
         </motion.div>
 
         {/* ========================================================================= */}
+        {/* INTERACTIVE HERO QUICK SEARCH & COUNTRY SELECTOR                          */}
+        {/* ========================================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-6 bg-white rounded-3xl p-4 sm:p-5 shadow-xl border border-[#F5EBD0]"
+        >
+          <form onSubmit={handleQuickSearch} className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+            
+            {/* Search Input */}
+            <div className="sm:col-span-6 relative">
+              <Search className="w-4 h-4 text-[#A5A79B] absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={quickSearch}
+                onChange={(e) => setQuickSearch(e.target.value)}
+                placeholder="Job title, keywords, skills (e.g. Logistics, Machinist, Nursing)..."
+                className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm bg-[#F3F3E7] border border-[#F5EBD0] rounded-xl text-[#590907] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F]"
+              />
+            </div>
+
+            {/* Country Selector */}
+            <div className="sm:col-span-3 relative">
+              <Globe className="w-4 h-4 text-[#A5A79B] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <select
+                value={quickCountry}
+                onChange={(e) => setQuickCountry(e.target.value)}
+                className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm bg-[#F3F3E7] border border-[#F5EBD0] rounded-xl text-[#590907] font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7F011F] cursor-pointer"
+              >
+                <option value="ALL">🌍 All Countries</option>
+                <option value="CA">🇨🇦 Canada (HQ)</option>
+                <option value="AU">🇦🇺 Australia</option>
+                <option value="US">🇺🇸 United States</option>
+                <option value="GB">🇬🇧 United Kingdom</option>
+                <option value="DE">🇩🇪 Germany & EU</option>
+                <option value="NZ">🇳🇿 New Zealand</option>
+                <option value="AE">🇦🇪 United Arab Emirates</option>
+                <option value="GLOBAL">🌐 Global Remote</option>
+              </select>
+            </div>
+
+            {/* Submit Button */}
+            <div className="sm:col-span-3">
+              <button
+                type="submit"
+                className="w-full py-2.5 bg-[#7F011F] hover:bg-[#590907] text-white text-xs sm:text-sm font-bold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Search className="w-4 h-4" />
+                <span>Search Jobs</span>
+              </button>
+            </div>
+
+          </form>
+        </motion.div>
+
+        {/* ========================================================================= */}
         {/* TRUST & HERITAGE BANNER DIRECTLY BENEATH THE HERO                          */}
         {/* ========================================================================= */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#F5EBD0] flex flex-wrap items-center justify-between gap-4 text-xs font-medium text-[#590907]/80"
+          className="mt-6 pt-5 border-t border-[#F5EBD0] flex flex-wrap items-center justify-between gap-4 text-xs font-medium text-[#590907]/80"
         >
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-[#7F011F]" />

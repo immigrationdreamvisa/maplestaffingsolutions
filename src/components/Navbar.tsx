@@ -1,45 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowRight, Briefcase } from 'lucide-react';
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
-interface NavbarProps {
-  activeSection: string;
-  onNavigate: (sectionId: string) => void;
-  onOpenRecruiterPortal?: () => void;
-  applicationsCount?: number;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({
-  activeSection,
-  onNavigate
-}) => {
+export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useBodyScrollLock(mobileMenuOpen);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 25);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About Us' },
-    { id: 'services', label: 'Services' },
-    { id: 'industries', label: 'Industries' },
-    { id: 'careers', label: 'Careers' },
-    { id: 'contact', label: 'Contact Us' },
+    { to: '/', label: 'Home' },
+    { to: '/about', label: 'About Us' },
+    { to: '/services', label: 'Services' },
+    { to: '/industries', label: 'Industries' },
+    { to: '/global', label: 'Global Hub' },
+    { to: '/careers', label: 'Careers' },
   ];
-
-  const handleLinkClick = (id: string) => {
-    onNavigate(id);
-    setMobileMenuOpen(false);
-  };
 
   return (
     <header
@@ -52,9 +39,10 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6">
           
-          {/* Left: Original Maple Staffing Solutions Logo */}
-          <button
-            onClick={() => handleLinkClick('home')}
+          {/* Left: Brand Logo */}
+          <Link
+            to="/"
+            onClick={() => setMobileMenuOpen(false)}
             className="flex items-center text-left group focus:outline-none cursor-pointer"
             aria-label="Maple Staffing Solutions Home"
           >
@@ -65,46 +53,48 @@ export const Navbar: React.FC<NavbarProps> = ({
               alt="Maple Staffing Solutions"
               className="h-10 sm:h-12 w-auto object-contain drop-shadow-sm"
             />
-          </button>
+          </Link>
 
-          {/* Center: Navigation Links with Animated Active Underline */}
+          {/* Center: Desktop Navigation Links with Animated Active Indicator */}
           <nav className="hidden lg:flex items-center gap-8 text-[15px] font-medium text-[#590907]">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.id;
-              return (
-                <button
-                  key={link.id}
-                  onClick={() => handleLinkClick(link.id)}
-                  className={`relative py-1.5 font-medium transition-colors cursor-pointer group ${
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === '/'}
+                className={({ isActive }) =>
+                  `relative py-1.5 font-medium transition-colors cursor-pointer group ${
                     isActive
                       ? 'text-[#7F011F] font-bold'
                       : 'text-[#590907]/85 hover:text-[#7F011F]'
-                  }`}
-                >
-                  <span>{link.label}</span>
-                  {/* Animated Muted Sage Indicator */}
-                  {isActive && (
-                    <motion.span
-                      layoutId="navActiveUnderline"
-                      className="absolute bottom-0 left-0 right-0 h-[2.5px] rounded-full bg-[#A5A79B]"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                  {!isActive && (
-                    <span className="absolute bottom-0 left-0 h-[2.5px] w-0 rounded-full bg-[#A5A79B] transition-all duration-300 group-hover:w-full" />
-                  )}
-                </button>
-              );
-            })}
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <span>{link.label}</span>
+                    {isActive ? (
+                      <motion.span
+                        layoutId="navActiveUnderline"
+                        className="absolute bottom-0 left-0 right-0 h-[2.5px] rounded-full bg-[#A5A79B]"
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    ) : (
+                      <span className="absolute bottom-0 left-0 h-[2.5px] w-0 rounded-full bg-[#A5A79B] transition-all duration-300 group-hover:w-full" />
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ))}
           </nav>
 
-          {/* Right: Find a Job CTA with Micro-interactions */}
+          {/* Right: Find a Job CTA */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
             <motion.button
               whileHover={{ scale: 1.03, translateY: -1 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => handleLinkClick('careers')}
-              className="px-5 py-2.5 text-sm font-semibold text-white bg-[#7F011F] hover:bg-[#590907] rounded-xl transition-colors shadow-[0_4px_14px_rgba(127,1,31,0.25)] hover:shadow-[0_6px_20px_rgba(89,9,7,0.35)] flex items-center gap-2 cursor-pointer group"
+              onClick={() => navigate('/careers')}
+              className="px-6 py-2.5 text-sm font-semibold text-white bg-[#7F011F] hover:bg-[#590907] rounded-xl transition-colors shadow-[0_4px_14px_rgba(127,1,31,0.25)] hover:shadow-[0_6px_20px_rgba(89,9,7,0.35)] flex items-center gap-2 cursor-pointer group"
             >
               <Briefcase className="w-4 h-4 text-[#A5A79B] group-hover:scale-110 transition-transform" />
               <span>Find a Job</span>
@@ -112,10 +102,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             </motion.button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Toggle Button */}
           <div className="flex lg:hidden items-center gap-2">
             <button
-              onClick={() => handleLinkClick('careers')}
+              onClick={() => navigate('/careers')}
               className="sm:hidden px-3.5 py-1.5 text-xs font-semibold text-white bg-[#7F011F] rounded-lg cursor-pointer"
             >
               Jobs
@@ -142,26 +132,31 @@ export const Navbar: React.FC<NavbarProps> = ({
             transition={{ duration: 0.25, ease: 'easeInOut' }}
             className="lg:hidden bg-[#F3F3E7] border-t border-[#F5EBD0] px-5 pt-3 pb-6 space-y-2 shadow-2xl overflow-hidden"
           >
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.id;
-              return (
-                <button
-                  key={link.id}
-                  onClick={() => handleLinkClick(link.id)}
-                  className={`block w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-medium cursor-pointer transition-colors ${
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === '/'}
+                onClick={() => setMobileMenuOpen(false)}
+                className={({ isActive }) =>
+                  `block w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-medium cursor-pointer transition-colors ${
                     isActive
                       ? 'bg-[#F5EBD0] text-[#7F011F] font-bold border-l-4 border-[#A5A79B]'
                       : 'text-[#590907]/80 hover:bg-[#F5EBD0]/50 hover:text-[#7F011F]'
-                  }`}
-                >
-                  {link.label}
-                </button>
-              );
-            })}
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+
             <div className="pt-3 border-t border-[#F5EBD0]">
               <button
-                onClick={() => handleLinkClick('careers')}
-                className="w-full text-center py-3 bg-[#7F011F] hover:bg-[#590907] text-white text-sm font-semibold rounded-xl shadow-md cursor-pointer flex items-center justify-center gap-2"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  navigate('/careers');
+                }}
+                className="w-full text-center py-2.5 bg-[#7F011F] hover:bg-[#590907] text-white text-sm font-semibold rounded-xl shadow-md cursor-pointer flex items-center justify-center gap-2"
               >
                 <Briefcase className="w-4 h-4 text-[#A5A79B]" />
                 <span>Find a Job</span>

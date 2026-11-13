@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, MapPin, Clock, CheckCircle2, ShieldCheck, ArrowRight, Sparkles, Building2 } from 'lucide-react';
+import { X, MapPin, Clock, CheckCircle2, ShieldCheck, ArrowRight, Sparkles, Globe, Plane, DollarSign } from 'lucide-react';
 import { JobListing } from '../types';
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
@@ -34,14 +34,14 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto modal-backdrop animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/65 backdrop-blur-xs overflow-y-auto modal-backdrop animate-in fade-in duration-200"
     >
-      <div className="bg-[#F3F3E7] rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto modal-dialog border border-[#F5EBD0]">
+      <div className="bg-[#F3F3E7] rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl relative my-6 max-h-[90vh] overflow-y-auto modal-dialog border border-[#F5EBD0] text-[#590907]">
         
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 text-[#590907] hover:text-[#7F011F] hover:bg-[#F5EBD0] rounded-xl transition-colors cursor-pointer"
+          className="absolute top-5 right-5 p-2 text-[#590907] hover:text-[#7F011F] hover:bg-[#F5EBD0] rounded-xl transition-colors cursor-pointer z-10"
           aria-label="Close job details"
         >
           <X className="w-5 h-5" />
@@ -57,9 +57,14 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
               (e.currentTarget as HTMLImageElement).src = '/images/careers/customer_service.jpg';
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#590907]/85 via-transparent to-transparent" />
-          <div className="absolute bottom-3.5 left-4">
-            <span className="text-xs font-bold text-[#590907] bg-[#F5EBD0] px-3 py-1 rounded-full uppercase tracking-wider shadow-sm border border-[#A5A79B]/30">
+          <div className="absolute inset-0 bg-gradient-to-t from-[#590907]/90 via-black/20 to-transparent" />
+          
+          <div className="absolute bottom-3.5 left-4 flex flex-wrap items-center gap-2">
+            <span className="text-xs font-bold text-[#590907] bg-white px-3 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1.5">
+              <span>{job.countryFlag || '🌍'}</span>
+              <span>{job.country || 'Canada'}</span>
+            </span>
+            <span className="text-xs font-bold text-white bg-[#7F011F] px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
               {job.category}
             </span>
           </div>
@@ -67,12 +72,15 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
 
         {/* Header */}
         <div className="mb-6 pb-6 border-b border-[#F5EBD0]">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-bold text-[#590907] uppercase tracking-wider bg-[#F5EBD0] px-2.5 py-1 rounded-md">
-              {job.category}
-            </span>
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            {job.visaSponsorship && (
+              <span className="text-[11px] font-bold text-[#590907] bg-[#F5EBD0] px-2.5 py-0.5 rounded-full flex items-center gap-1 border border-[#A5A79B]/40">
+                <Plane className="w-3 h-3 text-[#7F011F]" />
+                {job.visaSponsorship}
+              </span>
+            )}
             {job.isVerifiedVacancy ? (
-              <span className="text-[11px] font-bold text-white bg-[#7F011F] px-2.5 py-1 rounded-full flex items-center gap-1">
+              <span className="text-[11px] font-bold text-white bg-[#7F011F] px-2.5 py-0.5 rounded-full flex items-center gap-1">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#A5A79B]" />
                 Verified Live Vacancy
               </span>
@@ -96,32 +104,34 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
               <Clock className="w-4 h-4 text-[#7F011F]" />
               <span>{job.employmentType} ({job.workArrangement})</span>
             </div>
-            <div className="flex items-center gap-1.5 font-semibold text-[#590907] bg-[#F5EBD0] px-2.5 py-0.5 rounded-md">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#7F011F]" />
-              <span>Verified Employer</span>
-            </div>
+            {(job.hourlyRate || job.salary) && (
+              <div className="flex items-center gap-1.5 font-extrabold text-[#7F011F] bg-[#F5EBD0] px-2.5 py-0.5 rounded-md">
+                <DollarSign className="w-3.5 h-3.5" />
+                <span>{job.salary || job.hourlyRate}</span>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Content sections */}
-        <div className="space-y-6">
+        <div className="space-y-5">
           
           {/* Overview */}
-          <div className="bg-white p-5 rounded-xl border border-[#F5EBD0]">
+          <div className="bg-white p-5 rounded-2xl border border-[#F5EBD0]">
             <h3 className="text-xs font-bold text-[#590907] uppercase tracking-wider mb-2">
-              Role Overview
+              Role Overview & Context
             </h3>
-            <p className="text-sm text-[#590907]/80 leading-relaxed font-body">
+            <p className="text-sm text-[#590907]/85 leading-relaxed font-body">
               {job.description}
             </p>
           </div>
 
           {/* Responsibilities */}
-          <div className="bg-white p-5 rounded-xl border border-[#F5EBD0]">
+          <div className="bg-white p-5 rounded-2xl border border-[#F5EBD0]">
             <h3 className="text-xs font-bold text-[#590907] uppercase tracking-wider mb-3">
               Key Responsibilities
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2">
               {job.responsibilities.map((resp, idx) => (
                 <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#590907]/85 font-body">
                   <CheckCircle2 className="w-4 h-4 text-[#7F011F] shrink-0 mt-0.5" />
@@ -132,11 +142,11 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
           </div>
 
           {/* Qualifications & Requirements */}
-          <div className="bg-white p-5 rounded-xl border border-[#F5EBD0]">
+          <div className="bg-white p-5 rounded-2xl border border-[#F5EBD0]">
             <h3 className="text-xs font-bold text-[#590907] uppercase tracking-wider mb-3">
-              Required Qualifications & Safety Criteria
+              Qualifications & Competencies
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2">
               {job.qualifications.map((qual, idx) => (
                 <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#590907]/85 font-body">
                   <CheckCircle2 className="w-4 h-4 text-[#7F011F] shrink-0 mt-0.5" />
@@ -146,26 +156,42 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
             </ul>
           </div>
 
-          {/* Experience level */}
-          <div className="p-4 rounded-xl bg-[#F5EBD0]/60 border border-[#F5EBD0] grid grid-cols-2 gap-4 text-xs">
+          {/* Benefits */}
+          {job.benefits && job.benefits.length > 0 && (
+            <div className="bg-white p-5 rounded-2xl border border-[#F5EBD0]">
+              <h3 className="text-xs font-bold text-[#590907] uppercase tracking-wider mb-2.5">
+                Compensation, Perks & Benefits
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {job.benefits.map((b, i) => (
+                  <span key={i} className="text-xs font-semibold bg-[#F5EBD0]/70 text-[#590907] px-3 py-1 rounded-xl">
+                    ✓ {b}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Experience level & Timing */}
+          <div className="p-4 rounded-2xl bg-[#F5EBD0]/60 border border-[#F5EBD0] grid grid-cols-2 gap-4 text-xs">
             <div>
               <div className="text-[#590907]/70 font-medium">Experience Needed:</div>
-              <div className="font-bold text-[#590907] mt-0.5 font-heading">{job.experience}</div>
+              <div className="font-bold text-[#590907] mt-0.5 font-heading">{job.experience} ({job.experienceLevel || 'Mid Level'})</div>
             </div>
             <div>
-              <div className="text-[#590907]/70 font-medium">Placement Date:</div>
-              <div className="font-bold text-[#590907] mt-0.5 font-heading">Immediate / Next Shift</div>
+              <div className="text-[#590907]/70 font-medium">Start Date:</div>
+              <div className="font-bold text-[#590907] mt-0.5 font-heading">Immediate / Next Intake</div>
             </div>
           </div>
 
-          {/* Application Instructions */}
-          <div className="p-4 rounded-xl bg-[#F5EBD0]/40 border border-[#F5EBD0] text-xs text-[#590907] space-y-1">
+          {/* Zero Fee Guarantee */}
+          <div className="p-4 rounded-2xl bg-[#F5EBD0]/40 border border-[#F5EBD0] text-xs text-[#590907] space-y-1">
             <div className="font-bold text-[#590907] flex items-center gap-1.5 font-heading">
               <ShieldCheck className="w-4 h-4 text-[#7F011F]" />
-              Candidate Guarantee
+              Candidate Placement Guarantee
             </div>
             <p className="font-body text-[#590907]/85">
-              Click <strong>Apply for This Position</strong> below to complete our candidate form. Zero candidate fees are charged. Our Brampton recruitment desk reviews candidate profiles within 24 hours.
+              Maple Staffing Solutions never charges placement, registration, or interview fees to job candidates. Our global recruitment teams evaluate profiles within 24–48 business hours.
             </p>
           </div>
 

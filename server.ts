@@ -1,66 +1,13 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { JobListing, ApplicationSubmission, ContactSubmission } from './src/types';
+import { DEFAULT_JOBS } from './src/data/jobsData';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export interface JobListing {
-  id: string;
-  title: string;
-  location: string;
-  category: string;
-  employmentType: 'Full-time' | 'Part-time' | 'Contract' | 'Temporary';
-  hourlyRate?: string;
-  isVerifiedVacancy: boolean;
-  description: string;
-  responsibilities: string[];
-  qualifications: string[];
-  experience: string;
-  postedDate: string;
-  workArrangement: string;
-  cardImage: string;
-}
-
-export interface ApplicationSubmission {
-  id: string;
-  jobId: string;
-  jobTitle: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  currentCountry: string;
-  currentCity: string;
-  preferredLocation: string;
-  preferredJob: string;
-  workExperience: string;
-  additionalInfo?: string;
-  resumeFile?: {
-    name: string;
-    size: number;
-    type: string;
-    dataBase64?: string;
-  };
-  submittedAt: string;
-  status: 'New' | 'Under Review' | 'Interview Scheduled' | 'Shortlisted' | 'Placed' | 'Archived';
-}
-
-export interface ContactSubmission {
-  id: string;
-  inquiryType: 'general' | 'employer' | 'candidate';
-  fullName: string;
-  email: string;
-  phone: string;
-  companyName?: string;
-  subject: string;
-  message: string;
-  submittedAt: string;
-}
-
-// 25 Verified Listings loaded from the centralized source of truth
-import { INITIAL_JOBS } from './src/data/initialJobs';
-
-let jobsData: JobListing[] = [...INITIAL_JOBS];
+let jobsData: JobListing[] = [...DEFAULT_JOBS];
 let applicationsData: ApplicationSubmission[] = [];
 let contactMessagesData: ContactSubmission[] = [];
 
@@ -81,27 +28,56 @@ async function startServer() {
   });
 
   app.post('/api/jobs', (req: Request, res: Response) => {
-    const { title, location, category, employmentType, hourlyRate, description, responsibilities, qualifications, experience, isVerifiedVacancy, workArrangement, cardImage } = req.body;
+    const { 
+      title, 
+      location, 
+      city, 
+      country, 
+      countryCode, 
+      countryFlag, 
+      category, 
+      employmentType, 
+      hourlyRate, 
+      salary, 
+      description, 
+      responsibilities, 
+      qualifications, 
+      experience, 
+      isVerifiedVacancy, 
+      visaSponsorship, 
+      experienceLevel, 
+      workArrangement, 
+      cardImage, 
+      benefits 
+    } = req.body;
 
-    if (!title || !location || !category) {
-      return res.status(400).json({ success: false, error: 'Title, location, and category are required.' });
+    if (!title || !category) {
+      return res.status(400).json({ success: false, error: 'Title and category are required.' });
     }
 
     const newJob: JobListing = {
       id: `job-${Date.now()}`,
       title: String(title).trim(),
-      location: String(location).trim(),
+      location: String(location || 'Toronto, Ontario').trim(),
+      city: city || 'Toronto',
+      country: country || 'Canada',
+      countryCode: countryCode || 'CA',
+      countryFlag: countryFlag || '🇨🇦',
       category: String(category).trim(),
       employmentType: (employmentType as any) || 'Full-time',
       hourlyRate: hourlyRate || '',
-      isVerifiedVacancy: Boolean(isVerifiedVacancy),
+      salary: salary || '',
+      isVerifiedVacancy: isVerifiedVacancy !== undefined ? Boolean(isVerifiedVacancy) : true,
+      visaSponsorship: visaSponsorship || 'Open to International Candidates',
+      experienceLevel: experienceLevel || 'Mid Level',
       description: description || 'New career opportunity at Maple Staffing Solutions.',
       responsibilities: Array.isArray(responsibilities) ? responsibilities : (responsibilities ? String(responsibilities).split('\n').filter(Boolean) : ['Fulfill designated operational duties with safety.']),
-      qualifications: Array.isArray(qualifications) ? qualifications : (qualifications ? String(qualifications).split('\n').filter(Boolean) : ['Eligible to work in Canada.']),
-      experience: experience || 'Entry to Mid-Level',
+      qualifications: Array.isArray(qualifications) ? qualifications : (qualifications ? String(qualifications).split('\n').filter(Boolean) : ['Eligible to work in designated country.']),
+      experience: experience || 'Entry to Mid Level',
       postedDate: 'Just now',
       workArrangement: workArrangement || 'On-site',
-      cardImage: cardImage || '/images/careers/customer_service.jpg'
+      cardImage: cardImage || '/images/careers/customer_service.jpg',
+      benefits: Array.isArray(benefits) ? benefits : ['Comprehensive Benefits', 'Competitive Compensation']
     };
 
     jobsData.unshift(newJob);
